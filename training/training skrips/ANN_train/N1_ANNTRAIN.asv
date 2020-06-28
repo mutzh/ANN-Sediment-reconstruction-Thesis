@@ -46,28 +46,28 @@ sigma_TARGET=std(TARGET);
 
 
 
-nTF=[1:8]; % kombinationen der Transferfunction
+
+nTF=[1]; % kombinationen der Transferfunction
 % anzahl der neuronen im 1 hidden layser
-hiddenLayerSize =[2:3:17];
+hiddenLayerSize =[1:3:16];
 % wenn gräßer 0, dann gibt es einen 2. hidden layer mit entsprechender
 % anzahl von neuronen
-secondhiddenLayerSize=[2:3:17];
+secondhiddenLayerSize=[1:3:16];
 % anzahl wie oft jede kombination trainiert werden soll. Vielleciht beim
 % ersten mal nur wenige versuche und schauen was für ein ergebnis
 % rauskommt.
-nrun=40;
+nrun=1;
 %times to repeat the whole process in order to get statistical significance up!
-repetitions=5;
+repititions=5;
 
 % %control rng
 % rng(1);
 
 
 
-%start timer
-tic;
 
-for rep=1:repetitions
+tic;
+for rep=1:repititions
 z_TF_OL_Checking=[];
 %---------------DESIRED TIME OF RUN-----------------------------------------------------------------------------------------
 for z=1:nrun
@@ -367,12 +367,13 @@ for z=1:nrun
 
 end
 %waitbar
-waitbar(rep/repetitions)
+    if mod(z,nrun/100)==0
+        waitbar(z/nrun)
+    end
 
 
-
-repe=num2str(rep);
-filename = strcat('finalresults',repe,'.mat');
+rep=num2str(rep);
+filename = strcat('finalresults',rep,'.mat');
 save(fullfile(pwd,'\save_net\',filename ),'Ascending_z_TF_OL_Checking')
 end
 toc;
