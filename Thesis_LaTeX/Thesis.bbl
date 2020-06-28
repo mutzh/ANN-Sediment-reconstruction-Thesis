@@ -1,0 +1,42 @@
+\begin{thebibliography}{1}
+\providecommand{\url}[1]{#1}
+\csname url@rmstyle\endcsname
+\providecommand{\newblock}{\relax}
+\providecommand{\bibinfo}[2]{#2}
+\providecommand\BIBentrySTDinterwordspacing{\spaceskip=0pt\relax}
+\providecommand\BIBentryALTinterwordstretchfactor{4}
+\providecommand\BIBentryALTinterwordspacing{\spaceskip=\fontdimen2\font plus
+\BIBentryALTinterwordstretchfactor\fontdimen3\font minus
+  \fontdimen4\font\relax}
+\providecommand\BIBforeignlanguage[2]{{%
+\expandafter\ifx\csname l@#1\endcsname\relax
+\typeout{** WARNING: IEEEtran.bst: No hyphenation pattern has been}%
+\typeout{** loaded for the language `#1'. Using the pattern for}%
+\typeout{** the default language instead.}%
+\else
+\language=\csname l@#1\endcsname
+\fi
+#2}}
+
+\bibitem{nauman2011using}
+M.~Nauman, T.~Ali, and A.~Rauf, ``Using trusted computing for privacy
+  preserving keystroke-based authentication in smartphones,''
+  \emph{Telecommunication Systems}, pp. 1--13, 2011.
+
+\bibitem{se-cs-collab:nauman10}
+\BIBentryALTinterwordspacing
+M.~Nauman and M.~Uzair, ``Se and cs collaboration: Training students for
+  engineering large, complex systems,'' in \emph{Proceedings of the 20th
+  Conference on Software Engineering Education \& Training}.\hskip 1em plus
+  0.5em minus 0.4em\relax Washington, DC, USA: IEEE Computer Society, 2007, pp.
+  167--174. [Online]. Available:
+  \url{http://dl.acm.org/citation.cfm?id=1270381.1270618}
+\BIBentrySTDinterwordspacing
+
+\bibitem{seo2011user}
+H.~Seo and H.~Kim, ``User input pattern-based authentication method to prevent
+  mobile e-financial incidents,'' in \emph{Parallel and Distributed Processing
+  with Applications Workshops (ISPAW), 2011 Ninth IEEE International Symposium
+  on}.\hskip 1em plus 0.5em minus 0.4em\relax IEEE, 2011, pp. 382--387.
+
+\end{thebibliography}
