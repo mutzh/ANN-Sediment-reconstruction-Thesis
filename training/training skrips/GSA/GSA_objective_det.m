@@ -1,19 +1,22 @@
-function [func_bayesopt]=create_opti_bayes_neu(ANN1) %außere funktion die die daten reinlädt und ein function handle aus der inneren erstellt
+function [func_bayesopt]=RSA_objective(ANN1) %außere funktion die die daten reinlädt und ein function handle aus der inneren erstellt
     function [nse_v_and_ts]=opti(NEURONS)  %objective function, bzw zu optimierende function
     
     INPUT=ANN1(:,1);
     TARGET=ANN1(:,2);
-    
+    INPUT(1)=[];
+    TARGET(1)=[];
     
     %Der input vector "NEURONS" enthält die zu optimierenden hyperparameter, welche
     %der bayesopt ausprobiert und an unsere objective function übergibt um sie zu
     %evaluieren
-    NEURONS1=NEURONS.NEURONS1;
-    NEURONS2=NEURONS.NEURONS2;
-    TF1=NEURONS.TF1;
-    TF2=NEURONS.TF2;
-    TF3=NEURONS.TF3;
-    WB=NEURONS.WB;
+    NEURONS1=NEURONS(1);
+    NEURONS2=NEURONS(2);
+    TF1=NEURONS(3);
+    TF2=NEURONS(4);
+    TF3=NEURONS(5);
+    WB=NEURONS(6);
+    
+    rng(WB);
     
     %     NEURONS1=30;
     %     NEURONS2=30;
@@ -24,18 +27,10 @@ function [func_bayesopt]=create_opti_bayes_neu(ANN1) %außere funktion die die d
     %     a=[NEURONS1;NEURONS2;TF1;TF2;TF3;WB];
     %     disp(a);
     
-    
-    
-    rng(WB);
-    
-    
-    
-    
-    
-    
     net = feedforwardnet([NEURONS1 NEURONS2]);
     
     
+    net.trainParam.showWindow = 1;
     net.trainParam.epochs=30;
     net.trainParam.showWindow = 0;
     net.performParam.normalization='standard'; %normalization
@@ -47,31 +42,23 @@ function [func_bayesopt]=create_opti_bayes_neu(ANN1) %außere funktion die die d
     elseif TF1==2
         net.layers{1}.transferFcn='logsig';
     end
-    
-    
+
     if TF2==1
         net.layers{2}.transferFcn='tansig';
     elseif TF2==2
         net.layers{2}.transferFcn='logsig';
     end
     
-    
     if TF3==1
         net.layers{3}.transferFcn='tansig';
         
     elseif TF3==2
         net.layers{3}.transferFcn='purelin';
-        %         elseif TF3==3
-        %             net.layers{3}.transferFcn='logsig';
-        %         elseif TF3==4
-        %             net.layers{3}.transferFcn='radbas';
     end
     
     
     %aufteilen der daten mit divideint um immer dieselbe aufteilung zu erreichen und
     %damit den stochasitschen charakter unserer ANN objective function abzuschwächen
-    INPUT(1)=[];
-    TARGET(1)=[];
     net.divideFcn='divideint';
     net.divideParam.trainRatio=.70;
     net.divideParam.valRatio=.15;
@@ -81,7 +68,6 @@ function [func_bayesopt]=create_opti_bayes_neu(ANN1) %außere funktion die die d
     %loop um den mean mehrerer evaluationen desselben netzwerkes mit verschiedenen
     %initial weights zu bilden.
     %benutzt wird der mittlere mse von test und validation set
-    
     [net,tr] = train(net,INPUT',TARGET');
     
     output = net(INPUT');
@@ -123,6 +109,7 @@ function [func_bayesopt]=create_opti_bayes_neu(ANN1) %außere funktion die die d
     nse_v_and_ts=  nse_v_and_ts*(-1);
     end
 func_bayesopt=@opti; % erstellen eines function handle um dieses an bayesopt zu übergeben
+
 
 end
 

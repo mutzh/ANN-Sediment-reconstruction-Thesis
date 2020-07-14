@@ -1,4 +1,4 @@
-clear all
+% clear all
 
 close all
 %clc
@@ -30,12 +30,18 @@ load('ANN1')
 ANN3=ANN1;
 INPUT=ANN3(:,1);
 TARGET=ANN3(:,2);
+
+
+% % % %take out outliers
+% % % B=INPUT>150;
+% % % INPUT=INPUT(B);
+% % % TARGET=TARGET(B);
+
+
 INPUT(1)=[];
 TARGET(1)=[];
 
-%take out outliers
-    % INPUT(12197)=[];
-    % TARGET(12197)=[];
+
     
 %compute mean to later compare our models to it..
 mean(TARGET);
@@ -46,21 +52,21 @@ sigma_TARGET=std(TARGET);
 
 
 
-nTF=[1:8]; % kombinationen der Transferfunction
+nTF=[1]; % kombinationen der Transferfunction
 % anzahl der neuronen im 1 hidden layser
-hiddenLayerSize =[2:3:17];
+hiddenLayerSize =[5];
 % wenn gräßer 0, dann gibt es einen 2. hidden layer mit entsprechender
 % anzahl von neuronen
-secondhiddenLayerSize=[2:3:17];
+secondhiddenLayerSize=[5]
 % anzahl wie oft jede kombination trainiert werden soll. Vielleciht beim
 % ersten mal nur wenige versuche und schauen was für ein ergebnis
 % rauskommt.
-nrun=40;
+nrun=1;
 %times to repeat the whole process in order to get statistical significance up!
-repetitions=5;
+repetitions=1;
 
-% %control rng
-% rng(1);
+%  %control rng
+  rng(31);
 
 
 
@@ -71,6 +77,7 @@ for rep=1:repetitions
 z_TF_OL_Checking=[];
 %---------------DESIRED TIME OF RUN-----------------------------------------------------------------------------------------
 for z=1:nrun
+% rng(z)
     %----------------END----------------------------------------------------------------------------------
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% Prefix'F' means final of each
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% property
@@ -129,13 +136,13 @@ for z=1:nrun
                         net = feedforwardnet([NEURONS]);
                     end
                     
-                    net.trainParam.showWindow = 0;   % <== This does it
+                    net.trainParam.showWindow = 1;   % <== This does it
                     %%with different transfer functions DM: wenn du das
                     %%training fesnter sehen magst musst die zeile
                     %%kommentieren %
                     if TF==1
-                        net.layers{1}.transferFcn='logsig';
-                        net.layers{2}.transferFcn='purelin';
+                        net.layers{1}.transferFcn='tansig';
+                        net.layers{2}.transferFcn='tansig';
                         if NEURONS2 >0
                             net.layers{1}.transferFcn='tansig';
                             net.layers{2}.transferFcn='tansig';
@@ -143,8 +150,8 @@ for z=1:nrun
                         end
                     end
                     if TF==2
-                        net.layers{1}.transferFcn='tansig';
-                        net.layers{2}.transferFcn='purelin';
+                        net.layers{1}.transferFcn='logsig';
+                        net.layers{2}.transferFcn='tansig';
                         if NEURONS2 >0
                             net.layers{1}.transferFcn='tansig';
                             net.layers{2}.transferFcn='tansig';
@@ -221,6 +228,7 @@ for z=1:nrun
                     
                     [net,tr] = train(net,INPUT',TARGET');
                     
+                    plotfit(net,INPUT',TARGET')
                     
                     %-------------------------END OF DATA DIVISION---------------------------------------------------------------------------------------------------------------
                     %-------------------------SAVE RESULTS-------------------------------------------------------------------------------------------------------------------

@@ -15,23 +15,34 @@ function [opti_func]=GA_objectives(ANN1)  %außere funktion die die daten reinl�
     TF3=X(5);
     
     
-    
-    net = feedforwardnet([X1 X2]);
-    
+    net = feedforwardnet([N1 N2]);
     net.trainParam.showWindow = 0;
     net.performParam.normalization='standard'; %normalization
     net.trainParam.max_fail=4;
-    
-    
-    
     net.divideFcn='divideint';
     net.divideParam.trainRatio=.70;
     net.divideParam.valRatio=.15;
     net.divideParam.testRatio=.15;
-    %loop die den mean(mse) und mean(nse) aus mehreren netzwerken bildet
-    %der mse ist hier der mittelwert aus dem testset und dem validation set und
-    %nimmt an dass die beiden sets gleich groß sind
     
+    
+    if TF1==1
+        net.layers{1}.transferFcn='tansig';
+    elseif TF1==2
+        net.layers{1}.transferFcn='logsig';
+    end
+
+    if TF2==1
+        net.layers{2}.transferFcn='tansig';
+    elseif TF2==2
+        net.layers{2}.transferFcn='logsig';
+    end
+    
+    if TF3==1
+        net.layers{3}.transferFcn='tansig';
+        
+    elseif TF3==2
+        net.layers{3}.transferFcn='purelin';
+    end
     
     
     [net,tr] = train(net,INPUT',TARGET');

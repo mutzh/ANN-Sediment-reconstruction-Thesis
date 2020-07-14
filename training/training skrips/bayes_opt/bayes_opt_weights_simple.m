@@ -11,12 +11,12 @@ load('ANN1');
 %dann kann noch ein 3d plot erstellt werden
 
 %erstellen der verschiedenen zu optimierenden hyperpareameter
-Neurons_one=optimizableVariable('NEURONS1',[2,22],'Type','integer');
-Neurons_two=optimizableVariable('NEURONS2',[2,22],'Type','integer');
+Neurons_one=optimizableVariable('NEURONS1',[3,17],'Type','integer');
+Neurons_two=optimizableVariable('NEURONS2',[3,17],'Type','integer');
 tf1=optimizableVariable('TF1',[1,2],'Type','integer');
 tf2=optimizableVariable('TF2',[1,2],'Type','integer');
 tf3=optimizableVariable('TF3',[1,2],'Type','integer');
-wb=optimizableVariable('WB',[1,300],'Type','integer');
+wb=optimizableVariable('WB',[1,1000],'Type','integer');
 
 
 
@@ -30,5 +30,5 @@ objective_function=create_opti_bayes_weights_simple(ANN1);%erstellen des functio
 
 results=bayesopt(objective_function,[Neurons_one,Neurons_two,tf1,tf2,tf3,wb],'IsObjectiveDeterministic',true,'Verbose',2,...
                 'MaxObjectiveEvaluations',100,'PlotFcn',plot_functions,'NumSeedPoints',4,'AcquisitionFunctionName',...
-                'expected-improvement-plus','ExplorationRatio',0.5,'GPActiveSetSize',500,'MaxTime',100);
+                'expected-improvement-plus','ExplorationRatio',0.6,'GPActiveSetSize',500,'MaxTime',15602);
  

@@ -5,7 +5,7 @@ clc
 %laden des datasets
 load('ANN1.mat')
 %verkleinern des datasets für testrun
-ANN1=(ANN1(1:3000,:));
+ANN1=(ANN1(1:1000,:));
 
 
 
@@ -18,8 +18,8 @@ A = [];             %unbenutzte erwartete variablen des GA() leer lassen
 b = [];
 Aeq = [];
 beq = [];
-lb = [2 0 1 1 1];   %untere grenze
-ub = [20 20 3 3 2]; % obere grenze 
+lb = [1 1 1 1 1];   %untere grenze
+ub = [16 16 2 2 2]; % obere grenze 
 nonlcon = [];
 
 opti_func = create_opti(ANN1);  %GA() erwartet ein function handle, dies fkt. erstellt eines aus der objective function

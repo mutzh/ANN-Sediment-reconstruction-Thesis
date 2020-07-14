@@ -10,8 +10,8 @@ load('ANN1');
 %dann kann noch ein 3d plot erstellt werden
 
 %erstellen der verschiedenen zu optimierenden hyperpareameter
-Neurons_one=optimizableVariable('NEURONS1',[15,45],'Type','integer');
-Neurons_two=optimizableVariable('NEURONS2',[15,45],'Type','integer');
+Neurons_one=optimizableVariable('NEURONS1',[15,20],'Type','integer');
+Neurons_two=optimizableVariable('NEURONS2',[15,20],'Type','integer');
 
 
 objective_function=create_opti_bayes_2dim(ANN1);%erstellen des function handle
@@ -20,6 +20,6 @@ plot_functions={@plotAcquisitionFunction,@plotObjectiveModel,@plotMinObjective,@
 
 results=bayesopt(objective_function,[Neurons_one,Neurons_two],'IsObjectiveDeterministic',false,'Verbose',2,...
                 'MaxObjectiveEvaluations',200,'PlotFcn',plot_functions,'AcquisitionFunctionName',...
-                'expected-improvement-plus','ExplorationRatio',0.5,'GPActiveSetSize',500);
+                'expected-improvement-plus','ExplorationRatio',0.5,'GPActiveSetSize',500, 'MaxTime',15);
 
  

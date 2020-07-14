@@ -20,7 +20,7 @@ function [func_bayesopt]=create_opti_bayes_neu(ANN1) %außere funktion die die d
     %TF1=NEURONS.TF1;
     
     no_divisions=4;
-    no_evaluations=5;
+    no_evaluations=1;
     mse_evaluations_list=zeros(no_evaluations,1);
     mse_divisions_list=zeros(no_divisions,1);
     division_matrix=[];
