@@ -1,7 +1,7 @@
-%LOAD DATA
-% load('ANN2_train.mat') %daten laden für reconstruct
-% ANN1=ANN2_train;
-load('ANN1')
+% % % %LOAD DATA
+% % % % load('ANN2_train.mat') %daten laden für reconstruct
+% % % % ANN1=ANN2_train;
+% % % load('ANN1')
 
 
 
@@ -28,7 +28,7 @@ stepTF2=1;
 dim_TF3=2;
 stepTF3=1;
 %
-dim_WB=46;
+dim_WB=11;
 
 
 
@@ -37,7 +37,7 @@ no_designs=((dim_N1-1)/stepN1+1)*((dim_N2-1)/stepN2+1)*(dim_TF1/stepTF1)*(dim_TF
 %no_designs=((dim_N1-1)/stepN1+1)*((dim_N2-1)/stepN2+1)*(dim_TF1/stepTF1)*(dim_TF2/stepTF2)*(dim_TF3/stepTF3)*dim_WB;
 % % % design_space=zeros(no_designs,6);
 place=1;
-results=zeros(no_designs,1);
+Results=zeros(no_designs,1);
 for a=1:stepN1:dim_N1
     for b=1:stepN2:dim_N2
         for c=1:stepTF1:dim_TF1
@@ -47,7 +47,7 @@ for a=1:stepN1:dim_N1
                         design=[a,b,c,d,e,f];
 % % %                       design_space(place,:)=design;
                         result=(feval(ObjFun,design));
-                        results(place)=result;
+                        Results(place)=result;
                         place=place+1;
                     end
                 end
@@ -57,15 +57,15 @@ for a=1:stepN1:dim_N1
 end
 
 %display best
-best=min(results);
+best=min(Results);
 disp(best);
 
-% % % %cut out the excess zeros that werent filled(MaxTime)
-% % % B=results~=0;
-% % % results=results(B);
+%cut out the excess zeros that werent filled(MaxTime)
+B=Results~=0;
+Results=Results(B);
 
 %plot
 figure
-plot(1:length(results),results,'ro');
+plot(1:length(Results),Results,'ro');
 
 toc;
