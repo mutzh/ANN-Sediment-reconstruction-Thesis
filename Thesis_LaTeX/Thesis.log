@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.6.16)  30 JUN 2020 14:41
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.6.16)  14 AUG 2020 14:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -107,17 +107,12 @@ Package epstopdf Info: Source file: <epsFig.eps>
 (epstopdf)                    date: 2020-06-30 14:41:04
 (epstopdf)                    size: 207637 bytes
 (epstopdf)             Output file: <epsFig-eps-converted-to.pdf>
-(epstopdf)                    date: 2020-06-30 14:37:54
-(epstopdf)                    size: 5180 bytes
+(epstopdf)                    date: 2020-06-30 14:41:35
+(epstopdf)                    size: 82426 bytes
 (epstopdf)             Command: <repstopdf --outfile=epsFig-eps-converted-to.pd
 f epsFig.eps>
 (epstopdf)             \includegraphics on input line 33.
-runsystem(repstopdf --outfile=epsFig-eps-converted-to.pdf epsFig.eps)...execute
-d safely (allowed).
-
-Package epstopdf Info: Result file: <epsFig-eps-converted-to.pdf>
-(epstopdf)                    date: 2020-06-30 14:41:35
-(epstopdf)                    size: 82426 bytes.
+Package epstopdf Info: Output file is already uptodate.
 <epsFig-eps-converted-to.pdf, id=1, 352.31625pt x 287.0725pt>
 File: epsFig-eps-converted-to.pdf Graphic file (type pdf)
 <use epsFig-eps-converted-to.pdf>
