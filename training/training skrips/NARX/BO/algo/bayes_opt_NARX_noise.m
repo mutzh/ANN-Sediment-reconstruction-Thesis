@@ -16,13 +16,13 @@ function [minObjective,bestNet]= bayes_opt_NARX_noise(data_NarxN)
 %dann kann noch ein 3d plot erstellt werden
 
 %erstellen der verschiedenen zu optimierenden hyperpareameter
-Neurons_one=optimizableVariable('NEURONS1',[1,5],'Type','integer');
-Neurons_two=optimizableVariable('NEURONS2',[1,5],'Type','integer');
+Neurons_one=optimizableVariable('NEURONS1',[1,7],'Type','integer');
+Neurons_two=optimizableVariable('NEURONS2',[1,7],'Type','integer');
 tf1=optimizableVariable('TF1',[1,2],'Type','integer');
 tf2=optimizableVariable('TF2',[1,2],'Type','integer');
 tf3=optimizableVariable('TF3',[1,2],'Type','integer');
-id=optimizableVariable('ID',[1,5],'Type','integer');
-fd=optimizableVariable('FD',[1,5],'Type','integer');
+id=optimizableVariable('ID',[1,6],'Type','integer');
+fd=optimizableVariable('FD',[1,7],'Type','integer');
 
 
 
@@ -34,7 +34,7 @@ objective_function=create_opti_bayes_NARX_noise(data_NarxN);%erstellen des funct
 
             
 results=bayesopt(objective_function,[Neurons_one,Neurons_two,tf1,tf2,tf3,id,fd],'IsObjectiveDeterministic',false,'Verbose',0,...
-                'MaxObjectiveEvaluations',100,'PlotFcn',plot_functions,'NumSeedPoints',4,'AcquisitionFunctionName',...
+                'MaxObjectiveEvaluations',10000,'PlotFcn',plot_functions,'NumSeedPoints',4,'AcquisitionFunctionName',...
                 'expected-improvement-plus','ExplorationRatio',0.6,'GPActiveSetSize',500,'MaxTime',20);
 
 minObjective=results.MinObjective;
