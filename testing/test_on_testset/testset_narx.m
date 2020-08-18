@@ -81,5 +81,4 @@ e=e/Summe(2);
 e=e*100;
 disp('The cumulative error relative to the actual sum in [%] is:');
 disp(e);
-disp('some nets went as low as 0.18');
 

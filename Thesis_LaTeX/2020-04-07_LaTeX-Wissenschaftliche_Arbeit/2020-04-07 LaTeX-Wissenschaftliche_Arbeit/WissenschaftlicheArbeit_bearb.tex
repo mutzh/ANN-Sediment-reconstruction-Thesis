@@ -26,39 +26,44 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \input{./Ressourcen/Anfang.tex} % !!! NICHT ENTFERNEN !!!
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath}
+
 
 \begin{document}
 
-\title{Thema der Arbeit}
-\author{Martin Mustermann}
+\title{Reconstruction of suspended sediment using artificial intelligence}
+\author{Dominic Mutzhas}
 \date{Datum}
 %\maketitle   %also das brauchen wir nicht wegen dem deckblatt
 
 \tableofcontents % Inhaltsverzeichnis
 
-\chapter{Kapitelüberschrift}
+\chapter{Introduction}
 
-\section{Unterkapitelüberschrift}
+\section{}
 
 \subsection[]{Absatzüberschrift}
+Accurate suspended sediment modeling is needed for a variety of reasons. One example is the planning of hydraulic river structures like water reservoirs, where the slowing of the water leads to a deposition of suspended sediment, and eventually to complete aggradation. 
 
-Dies ist die Vorlage für eine wissenschaftliche Arbeit nach dem Corporate
-Design der Technischen Universität München (TUM). Die Vorlage ist für "`TeX
-Live 2015"' kompatibel.
+Since the interaction between hydraulic structures and the environment is very complex, any available data in that flied is important, and supended sediment data can be helpful in evaluating the impact of hydraulic structures on ecosystems.
+Predicting these much needed values turns out to be a difficult problem, since Erosion and sediment transport are very physically complex phenomena. Thus the accuracy of physical models is also limited, since The large number of [obscure] parameters involved, requires many assumptions and simplifications to be made.
 
-Bitte geben Sie Ihren individuellen Text an den vorgesehenen Stellen ein und
-beachten Sie die Formatvorgaben des jeweiligen Lehrstuhls oder der Prüfenden
-zum inhaltlichen und formalen Aufbau der wissenschaftlichen Arbeit. Achten Sie
-grundsätzlich auf ein angenehmes Erscheinungsbild für den Leser und dass ein
-1,5-facher Zeilenabstand und am Rand genügend Platz für Korrekturen
-eingehalten wird\footnote{Bitte beachten Sie die Zitationsvorgaben Ihres
-Prüfers.}.
+This difficulty has lead to the development of data driven methods,where the rivers suspended sediment dynamic is approximated with a model which is built directly from the data. One big advantage with these methods is that the data implicitely represents the physical phenomena, and thus allow modeling, without requiring any knowlege about the actualy physical theory. 
+A very simple type of a data driven Models is the classic power function \gls{src} \cite{Jansson}:
+%----------------------------------------
+\begin{equation}\label{eq:emc}
+Qs=aQ^{b}
+\end{equation}   
+%---------------------------------------
+where a and b are regression parameters that describe the relationship between the suspended sediment transport \textit{Qs} and the flow \textit{Q}.
 
-Grundsätzlich sind die Schriftarten Arial und Times New Roman, sowie die Neue
-Helvetica zulässig. Der Text ist links ausgerichtet und in Blocksatz gesetzt.
-Auszeichnungen der Schrift können durch Fettung, Schrägstellung und
-Unterstreichung erfolgen. Farbige Schrift sollte nur in Ausnahmefällen oder
-Grafiken zum Einsatz kommen.
+ Though very commonly used, more and more evidence which suggest that these classic \gls{src} are not only not a very good solution for this problem, but also that there are much better solutions availiable. \cite{past}
+
+
+
+
+As the machine learning(ML) revolution progresses, more and more scientific disciplines are trying to take advantage of it's strenghts in handling complex and non-linear problems. As such it has also found it's way into the field of water management in the form of artificial neural networks (ANN), especially for the prediction of Flow and suspended Sediment.
+
 
 \begin{figure}[!ht]
 \noindent\hspace{0.5mm}\includegraphics[width=12cm]{./Ressourcen/epsFig}
@@ -240,5 +245,8 @@ Nummer 1 & Nummer 2 \\
 \end{tabularx}
 \caption{}
 \end{table}
-
+% -------------------------------------------------------------------
+% add bibliography-related commands here 
+\bibliographystyle{plain}
+\bibliography{bibfile_wa}   
 \end{document}

@@ -1,1 +1,3 @@
-(indexentry :tkey (("Abk." "\\glossentry{abk}") ) :locref "{}{3}" :attr "pageglsnumberformat" ) 
+(indexentry :tkey (("SRC" "\\glossentry{src}") ) :locref "{}{2}" :attr "pageglsnumberformat" ) 
+(indexentry :tkey (("SRC" "\\glossentry{src}") ) :locref "{}{2}" :attr "pageglsnumberformat" ) 
+(indexentry :tkey (("Abk." "\\glossentry{abk}") ) :locref "{}{4}" :attr "pageglsnumberformat" ) 

@@ -3,8 +3,7 @@ load('data_NarxN');
 testset_inputs=data_NarxN(1:2809,1)';
 testset_observations=data_NarxN(1:2809,2)';
 
-testset_inputs = tonndata(testset_inputs,true,false);
-testset_observations = tonndata(testset_observations,true,false);
+
 
 
 
@@ -12,9 +11,9 @@ testset_observations = tonndata(testset_observations,true,false);
 
 %1) calculate network output from input data, we need to be in the folder that contains
 %the net, so that it can be loaded from that folder!!!
-testset_net=[1,1,1,14];
 
-testset_predictions=use_ANN(testset_net,testset_inputs);
+
+testset_predictions=SRC_function(testset_inputs);
 
 
 %2) construct datevec (not representative, for plotting purposes only)
@@ -29,12 +28,12 @@ date_vec_testset=date_vec_testset';
 yRange=[0 4.5e+5];
 
 %compare the hydrographs of observation and prediction
-compare_hydrograph([testset_predictions{:}],[testset_observations{:}],date_vec_testset,yRange)
+compare_hydrograph(testset_predictions,testset_observations,date_vec_testset,yRange)
 
 
 %4) cumulated sediment scaling factor for the visualisation included
-cumulated_output_wholeset=cumsum([testset_predictions{:}]).*0.01;
-cumulated_observations_wholeset=cumsum([testset_observations{:}]).*0.01;
+cumulated_output_wholeset=cumsum(testset_predictions).*0.01;
+cumulated_observations_wholeset=cumsum(testset_observations).*0.01;
 
 plot(date_vec_testset,cumulated_observations_wholeset,'green')
 plot(date_vec_testset,cumulated_output_wholeset,'magenta')
@@ -45,18 +44,16 @@ plot(date_vec_testset,cumulated_output_wholeset,'magenta')
 flow=testset_inputs;
 %scling for visualisation
 flow=gmultiply(flow(:),2e+1);
-flow=cell2mat(flow);
 plot(date_vec_testset,flow,'black')
 legend({'observed','output','sumObs','sumOut','flow'},'Location','North','NumColumns',5)
 
 
 %6)BAR GRAPH TO COMPARE NETS AND MEAN OF TRAINING DATA
 %cut out NaN in order to take a sum
-testset_predictions=[testset_predictions{:}];
 nan=~isnan(testset_predictions);
 testset_predictions=testset_predictions(nan);
 
-testset_observations=[testset_observations{:}];
+
 nan=~isnan(testset_observations);
 testset_observations=testset_observations(nan);
 
@@ -79,4 +76,5 @@ e=e/Summe(2);
 e=e*100;
 disp('The cumulative error relative to the actual sum in [%] is:');
 disp(e);
+
 

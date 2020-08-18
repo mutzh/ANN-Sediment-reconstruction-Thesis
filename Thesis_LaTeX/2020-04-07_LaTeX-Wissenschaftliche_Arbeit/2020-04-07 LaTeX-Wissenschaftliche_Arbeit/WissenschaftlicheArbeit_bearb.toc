@@ -1,8 +1,7 @@
 \babel@toc {ngerman}{}
 \vspace {-10pt}
-\contentsline {chapter}{\numberline {1}Kapitelüberschrift}{2}{chapter.1}%
-\contentsline {section}{\numberline {1.1}Unterkapitelüberschrift}{2}{section.1.1}%
+\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.1}%
 \vspace {-10pt}
-\contentsline {chapter}{\nonumberline Tabellenvarianten}{6}{chapter*.5}%
+\contentsline {chapter}{\nonumberline Tabellenvarianten}{7}{chapter*.5}%
 \vspace {-10pt}
-\contentsline {chapter}{\nonumberline Tabellenvarianten 2}{7}{chapter*.12}%
+\contentsline {chapter}{\nonumberline Tabellenvarianten 2}{8}{chapter*.12}%
