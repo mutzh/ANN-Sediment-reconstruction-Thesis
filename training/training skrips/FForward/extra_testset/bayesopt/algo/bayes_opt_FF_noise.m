@@ -16,8 +16,8 @@ rng('shuffle');
 %dann kann noch ein 3d plot erstellt werden
 
 %erstellen der verschiedenen zu optimierenden hyperpareameter
-Neurons_one=optimizableVariable('NEURONS1',[1,5],'Type','integer');
-Neurons_two=optimizableVariable('NEURONS2',[1,5],'Type','integer');
+Neurons_one=optimizableVariable('NEURONS1',[1,11],'Type','integer');
+Neurons_two=optimizableVariable('NEURONS2',[1,11],'Type','integer');
 tf1=optimizableVariable('TF1',[1,2],'Type','integer');
 tf2=optimizableVariable('TF2',[1,2],'Type','integer');
 tf3=optimizableVariable('TF3',[1,2],'Type','integer');
@@ -32,8 +32,8 @@ plot_functions={};
      
             
 results=bayesopt(objective_function,[Neurons_one,Neurons_two,tf1,tf2,tf3],'IsObjectiveDeterministic',false,'Verbose',0,...
-                'MaxObjectiveEvaluations',30,'PlotFcn',plot_functions,'NumSeedPoints',4,'AcquisitionFunctionName',...
-                'expected-improvement-plus','ExplorationRatio',0.6,'GPActiveSetSize',500,'MaxTime',1000);
+                'MaxObjectiveEvaluations',1000,'PlotFcn',plot_functions,'NumSeedPoints',4,'AcquisitionFunctionName',...
+                'expected-improvement-plus','ExplorationRatio',0.6,'MaxTime',350);
 
 minObjective=results.MinObjective;
 bestNet=results.XAtMinEstimatedObjective;

@@ -13,9 +13,9 @@ T=data_NarxN(2810:end,2)';
 
 
 % Create a Fitting Network
-hiddenLayerSize = [2,5];
-TF=3;
-% rng(2);
+hiddenLayerSize = [11,11];
+TF=5;
+rng(5);
 
 net = feedforwardnet(hiddenLayerSize);
 

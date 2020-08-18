@@ -17,7 +17,7 @@ rng('shuffle');
 %vektor der die verschiedenen optionen für den genetischen algorithmus enthält, als
 %NAME/VALUE pairs
 plots={};%,@gaplotbestindiv,@gaplotexpectation}^;
-ga_opts=optimoptions('ga','Populationsize',25,'MaxGenerations',20, 'Display','off','PlotFcn',plots, 'maxTime',50,'EliteCount',3);
+ga_opts=optimoptions('ga','Populationsize',30,'MaxGenerations',1000, 'Display','iter','PlotFcn',plots, 'maxTime',95,'EliteCount',2);
 
 IntCon=[1,2,3,4,5]; %unsere zu optimierenden variablen sind integer
 A = [];             %unbenutzte erwartete variablen des GA() leer lassen
@@ -25,7 +25,7 @@ b = [];
 Aeq = [];
 beq = [];
 lb = [1 1 1 1 1];   %untere grenze
-ub = [4 4 2 2 2] ; % obere grenze 
+ub = [11 11 2 2 2] ; % obere grenze 
 nonlcon = [];
 
 opti_func = GA_objective_FF_det(data_NarxN);  %GA() erwartet ein function handle, dies fkt. erstellt eines aus der objective function

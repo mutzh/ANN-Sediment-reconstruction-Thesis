@@ -16,17 +16,17 @@ Best_rng=cell(3,no_trials);
 best_cand_rng=cell(3,no_trials);
 
 for trial=1:no_trials
-%     [Best_det{1,trial},best_cand_det{1,trial}]=RSA_unique_FF_det(data_NarxN);
+    [Best_det{1,trial},best_cand_det{1,trial}]=RSA_unique_FF_det(data_NarxN);
     [Best_det{2,trial},best_cand_det{2,trial}]=GA_FF_det(data_NarxN);
-%     [Best_det{3,trial},best_cand_det{3,trial}]=bayes_opt_FF_det(data_NarxN);
-%     
-%     [Best_noise{1,trial},best_cand_noise{1,trial}]=RSA_unique_FF_noise(data_NarxN);
-%     [Best_noise{2,trial},best_cand_noise{2,trial}]=GA_FF_noise(data_NarxN);
-%     [Best_noise{3,trial},best_cand_noise{3,trial}]=bayes_opt_FF_noise(data_NarxN);
-%     
-%     [Best_rng{1,trial},best_cand_rng{1,trial}]=RSA_unique_FF_rng(data_NarxN);
-%     [Best_rng{2,trial},best_cand_rng{2,trial}]=GA_FF_rng(data_NarxN);
-%     [Best_rng{3,trial},best_cand_rng{3,trial}]=bayes_opt_FF_rng(data_NarxN);
+    [Best_det{3,trial},best_cand_det{3,trial}]=bayes_opt_FF_det(data_NarxN);
+    
+    [Best_noise{1,trial},best_cand_noise{1,trial}]=RSA_unique_FF_noise(data_NarxN);
+    [Best_noise{2,trial},best_cand_noise{2,trial}]=GA_FF_noise(data_NarxN);
+    [Best_noise{3,trial},best_cand_noise{3,trial}]=bayes_opt_FF_noise(data_NarxN);
+    
+    [Best_rng{1,trial},best_cand_rng{1,trial}]=RSA_unique_FF_rng(data_NarxN);
+    [Best_rng{2,trial},best_cand_rng{2,trial}]=GA_FF_rng(data_NarxN);
+    [Best_rng{3,trial},best_cand_rng{3,trial}]=bayes_opt_FF_rng(data_NarxN);
 end
 Best_of_all_trials_det=cell(3,2);
 Best_of_all_trials_noise=cell(3,2);

@@ -52,16 +52,16 @@ sigma_TARGET=std(TARGET);
 
 
 
-nTF=[2]; % kombinationen der Transferfunction
+nTF=[5]; % kombinationen der Transferfunction
 % anzahl der neuronen im 1 hidden layser
-hiddenLayerSize =[3];
+hiddenLayerSize =[11];
 % wenn größer 0, dann gibt es einen 2. hidden layer mit entsprechender
 % anzahl von neuronen
-secondhiddenLayerSize=[2];
+secondhiddenLayerSize=[11];
 % anzahl wie oft jede kombination trainiert werden soll. Vielleciht beim
 % ersten mal nur wenige versuche und schauen was für ein ergebnis
 % rauskommt.
-nrun=5;
+nrun=1;
 %times to repeat the whole process in order to get statistical significance up!
 repetitions=1;
 
@@ -235,7 +235,7 @@ for rep=1:repetitions
                         rng(z);
                         [net,tr] = train(net,INPUT',TARGET');
                         
-                        %                     plotfit(net,INPUT',TARGET')
+                                             plotfit(net,INPUT',TARGET')
                         
                         %-------------------------END OF DATA DIVISION---------------------------------------------------------------------------------------------------------------
                         %-------------------------SAVE RESULTS-------------------------------------------------------------------------------------------------------------------

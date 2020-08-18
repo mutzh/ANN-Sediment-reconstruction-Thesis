@@ -29,8 +29,8 @@ function [best,best_candidate]= RSA_unique_FF_rng(data_NarxN)
     
     %create serach space to sample from
     tic;
-    dim_N1=5;
-    dim_N2=5;
+    dim_N1=11;
+    dim_N2=11;
     dim_TF1=2;
     dim_TF2=2;
     dim_TF3=2;
@@ -59,8 +59,8 @@ function [best,best_candidate]= RSA_unique_FF_rng(data_NarxN)
     
     
     %RSA options
-    maxTime=30;
-    numIter=50;
+    maxTime=445;
+    numIter=1000;
     %candidate population
     rng('shuffle')
     %here it is decided which rows(designs) are going to be evaluated on the

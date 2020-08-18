@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.6.16)  18 AUG 2020 19:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020/W32TeX) (preloaded format=pdflatex 2020.6.16)  18 AUG 2020 20:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -901,7 +901,7 @@ Package epstopdf Info: Source file: <./Ressourcen/epsFig.eps>
 nverted-to.pdf ./Ressourcen/epsFig.eps>
 (epstopdf)             \includegraphics on input line 69.
 Package epstopdf Info: Output file is already uptodate.
-<./Ressourcen/epsFig-eps-converted-to.pdf, id=22, 352.31625pt x 287.0725pt>
+<./Ressourcen/epsFig-eps-converted-to.pdf, id=23, 352.31625pt x 287.0725pt>
 File: ./Ressourcen/epsFig-eps-converted-to.pdf Graphic file (type pdf)
 <use ./Ressourcen/epsFig-eps-converted-to.pdf>
 Package pdftex.def Info: ./Ressourcen/epsFig-eps-converted-to.pdf  used on inpu
@@ -1018,10 +1018,10 @@ hanged.
 Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 252.
  ) 
 Here is how much of TeX's memory you used:
- 20147 strings out of 480608
- 382839 string characters out of 5907536
+ 20153 strings out of 480608
+ 382922 string characters out of 5907536
  866982 words of memory out of 5000000
- 35611 multiletter control sequences out of 15000+600000
+ 35616 multiletter control sequences out of 15000+600000
  566897 words of font info for 64 fonts, out of 8000000 for 9000
  1143 hyphenation exceptions out of 8191
  60i,19n,99p,10248b,535s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1039,10 +1039,10 @@ nts/cm/cmr10.pfb><c:/texlive/2020/texmf-dist/fonts/type1/public/cm-super/sftt10
 95.pfb><c:/texlive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb><c:/texl
 ive/2020/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb><c:/texlive/2020/texmf-
 dist/fonts/type1/urw/helvetic/uhvro8a.pfb>
-Output written on WissenschaftlicheArbeit_bearb.pdf (9 pages, 167678 bytes).
+Output written on WissenschaftlicheArbeit_bearb.pdf (9 pages, 167861 bytes).
 PDF statistics:
- 153 PDF objects out of 1000 (max. 8388607)
- 130 compressed objects within 2 object streams
- 41 named destinations out of 1000 (max. 500000)
+ 155 PDF objects out of 1000 (max. 8388607)
+ 132 compressed objects within 2 object streams
+ 42 named destinations out of 1000 (max. 500000)
  30 words of extra memory for PDF output out of 10000 (max. 10000000)
 
