@@ -57,7 +57,7 @@ function [best,best_candidate]= RSA_unique_FF_det(data_NarxN)
     
     %RSA options
     maxTime=95;
-    numIter=1000;
+    numIter=968;
     %candidate population
     rng('shuffle')
     candidate_indices=randsample(no_design_possibilites,numIter);
