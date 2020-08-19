@@ -1,7 +1,7 @@
 %analyze whole testset 
-load('data_NarxN');
-wholeset_inputs=data_NarxN(:,1)';
-wholeset_observations=data_NarxN(:,2)';
+load('ANN1');
+wholeset_inputs=ANN1(:,1)';
+wholeset_observations=ANN1(:,2)';
 
 
 
@@ -15,7 +15,7 @@ wholeset_predictions=SRC_function(wholeset_inputs);
 
 %2) construct datevec (not representative, for plotting purposes only)
 t1 = datetime(1931,01,01);
-t2 = datetime(1982,04,11);
+t2 = datetime(1980,04,28);
 date_vec_wholeset= t1:caldays(1):t2;
 % date_vec_wholeset=date_vec_wholeset';
 

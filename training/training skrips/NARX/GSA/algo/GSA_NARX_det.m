@@ -28,10 +28,10 @@ stepTF2=1;
 dim_TF3=2;
 stepTF3=1;
 %
-ID=7;
+ID=7;   %0,2,4,6
 stepID=2;
 %
-FD=7;
+FD=7; %1,3,5,7
 stepFD=2;
 
 

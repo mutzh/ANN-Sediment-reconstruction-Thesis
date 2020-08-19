@@ -9,8 +9,8 @@ no_trials=2;
 Best_det=cell(3,no_trials);
 best_cand_det=cell(3,no_trials);
 
-Best_noise=cell(3,no_trials);
-best_cand_noise=cell(3,no_trials);
+Best_noise=cell(4,no_trials);
+best_cand_noise=cell(4,no_trials);
 
 Best_rng=cell(3,no_trials);
 best_cand_rng=cell(3,no_trials);
@@ -23,6 +23,7 @@ for trial=1:no_trials
     [Best_noise{1,trial},best_cand_noise{1,trial}]=RSA_unique_NARX_noise(data_NarxN);
     [Best_noise{2,trial},best_cand_noise{2,trial}]=GA_NARX_noise(data_NarxN);
     [Best_noise{3,trial},best_cand_noise{3,trial}]=bayes_opt_NARX_noise(data_NarxN);
+    [Best_noise{4,trial},best_cand_noise{4,trial}]=GSA_NARX_noise(data_NarxN)
     
     [Best_rng{1,trial},best_cand_rng{1,trial}]=RSA_unique_NARX_rng(data_NarxN);
     [Best_rng{2,trial},best_cand_rng{2,trial}]=GA_NARX_rng(data_NarxN);
