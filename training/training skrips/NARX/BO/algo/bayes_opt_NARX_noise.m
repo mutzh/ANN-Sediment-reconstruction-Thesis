@@ -35,7 +35,7 @@ objective_function=create_opti_bayes_NARX_noise(data_NarxN);%erstellen des funct
             
 results=bayesopt(objective_function,[Neurons_one,Neurons_two,tf1,tf2,tf3,id,fd],'IsObjectiveDeterministic',false,'Verbose',0,...
                 'MaxObjectiveEvaluations',10000,'PlotFcn',plot_functions,'NumSeedPoints',4,'AcquisitionFunctionName',...
-                'expected-improvement-plus','ExplorationRatio',0.6,'GPActiveSetSize',500,'MaxTime',20);
+                'expected-improvement-plus','ExplorationRatio',0.6,'GPActiveSetSize',800,'MaxTime',1700);
 
 minObjective=results.MinObjective;
 bestNet=results.XAtMinEstimatedObjective;

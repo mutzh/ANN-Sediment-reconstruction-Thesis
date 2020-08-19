@@ -27,7 +27,7 @@ function [func_bayesopt]=create_opti_bayes_NARX_det(data_NarxN) %außere funktio
     ID=NEURONS.ID;
     FD=NEURONS.FD;
   
-  
+    rng(5);
     
     
     

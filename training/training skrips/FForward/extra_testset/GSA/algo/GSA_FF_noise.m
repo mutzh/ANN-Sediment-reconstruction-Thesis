@@ -1,10 +1,13 @@
 % % % %LOAD DATA
 % % % % load('ANN2_train.mat') %daten laden für reconstruct
 % % % % ANN1=ANN2_train;
-load('data_NarxN')
+% % % % load('data_NarxN')
+% % % % 
+% % % % rng('shuffle');
+
+function [best,best_candidate]= GSA_FF_noise(data_NarxN)
 
 rng('shuffle');
-
 
 %start timer
 tic;
@@ -61,14 +64,15 @@ end
 best=min(Results);
 best_candidate_position=find(Results==best,1);
 best_candidate=design_space(best_candidate_position,:);
-disp(best);
-
-%cut out the excess zeros that werent filled(MaxTime)
-B=Results~=0;
-Results=Results(B);
-
-%plot
-figure
-plot(1:length(Results),Results,'ro');
-
+% disp(best);
+% 
+% %cut out the excess zeros that werent filled(MaxTime)
+% B=Results~=0;
+% Results=Results(B);
+% 
+% %plot
+% figure
+% plot(1:length(Results),Results,'ro');
+% 
 toc;
+end

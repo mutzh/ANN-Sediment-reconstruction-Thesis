@@ -3,30 +3,31 @@
 load('data_NarxN.mat')
 
 
-no_trials=10;
+no_trials=1;
 
 
 Best_det=cell(3,no_trials);
 best_cand_det=cell(3,no_trials);
 
-Best_noise=cell(3,no_trials);
-best_cand_noise=cell(3,no_trials);
+Best_noise=cell(4,no_trials);
+best_cand_noise=cell(4,no_trials);
 
 Best_rng=cell(3,no_trials);
 best_cand_rng=cell(3,no_trials);
 
 for trial=1:no_trials
-    [Best_det{1,trial},best_cand_det{1,trial}]=RSA_unique_FF_det(data_NarxN);
-    [Best_det{2,trial},best_cand_det{2,trial}]=GA_FF_det(data_NarxN);
-    [Best_det{3,trial},best_cand_det{3,trial}]=bayes_opt_FF_det(data_NarxN);
-    
-    [Best_noise{1,trial},best_cand_noise{1,trial}]=RSA_unique_FF_noise(data_NarxN);
+%     [Best_det{1,trial},best_cand_det{1,trial}]=RSA_unique_FF_det(data_NarxN);
+%     [Best_det{2,trial},best_cand_det{2,trial}]=GA_FF_det(data_NarxN);
+%     [Best_det{3,trial},best_cand_det{3,trial}]=bayes_opt_FF_det(data_NarxN);
+%     
+%     [Best_noise{1,trial},best_cand_noise{1,trial}]=RSA_unique_FF_noise(data_NarxN);
     [Best_noise{2,trial},best_cand_noise{2,trial}]=GA_FF_noise(data_NarxN);
-    [Best_noise{3,trial},best_cand_noise{3,trial}]=bayes_opt_FF_noise(data_NarxN);
-    
-    [Best_rng{1,trial},best_cand_rng{1,trial}]=RSA_unique_FF_rng(data_NarxN);
-    [Best_rng{2,trial},best_cand_rng{2,trial}]=GA_FF_rng(data_NarxN);
-    [Best_rng{3,trial},best_cand_rng{3,trial}]=bayes_opt_FF_rng(data_NarxN);
+%     [Best_noise{3,trial},best_cand_noise{3,trial}]=bayes_opt_FF_noise(data_NarxN);
+%     [Best_noise{4,trial},best_cand_noise{4,trial}]=GSA_FF_noise(data_NarxN);
+% 
+%     [Best_rng{1,trial},best_cand_rng{1,trial}]=RSA_unique_FF_rng(data_NarxN);
+%     [Best_rng{2,trial},best_cand_rng{2,trial}]=GA_FF_rng(data_NarxN);
+%     [Best_rng{3,trial},best_cand_rng{3,trial}]=bayes_opt_FF_rng(data_NarxN);
 end
 Best_of_all_trials_det=cell(3,2);
 Best_of_all_trials_noise=cell(3,2);
@@ -83,9 +84,15 @@ a=Best_noise(3,:)==c;
 b=best_cand_noise(3,:);
 Best_of_all_trials_noise{3}=b{a};
 Best_of_all_trials_noise{3,2}=c;
+%2.4)GSA
+c=max(Best_noise(4,:));
+a=Best_noise(4,:)==c;
+b=best_cand_noise(4,:);
+Best_of_all_trials_noise{4}=b{a};
+Best_of_all_trials_noise{4,2}=c;
 
 Best_noise=Best_noise';
-Best_noise(:,end+1)=0.6307;%add GSA manually
+
 
 
 

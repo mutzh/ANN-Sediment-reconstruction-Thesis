@@ -25,21 +25,21 @@ trainFcn = 'trainlm';  % Bayesian Regularization backpropagation.
 % Create a Nonlinear Autoregressive Network with External Input
 nrun=1;
 TF=2;
-inputDelays = 0:3;
-feedbackDelays = 1:3;
-hidden1=3;
-hidden2=2;
+inputDelays = 6; %0:inputDelays
+feedbackDelays = 7;%1:feedbackDelays
+hidden1=7;
+hidden2=7;
 hiddenLayerSize = [hidden1,hidden2]; %4:5--> 2 hidden layers [4,5]
 
 
 
 
-all_config_results=zeros(nrun,15);
+all_config_results=zeros(nrun,10);
 for z=1:nrun
 %     rng(z);
     %     rng('shuffle');
     
-    net = narxnet(inputDelays,feedbackDelays,hiddenLayerSize,'open',trainFcn);
+    net = narxnet([0:inputDelays],[1:feedbackDelays],hiddenLayerSize,'open',trainFcn);
     
     net.trainParam.epochs=30;
     net.performParam.normalization='standard';
