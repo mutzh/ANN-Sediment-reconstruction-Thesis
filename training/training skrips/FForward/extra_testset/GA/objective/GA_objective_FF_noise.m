@@ -15,7 +15,7 @@ function [func_bayesopt]=GA_objective_FF_noise(data_NarxN) %außere funktion die
     TF2=X(4);
     TF3=X(5);
    
-  
+
     
     
     net = feedforwardnet([N1 N2]);

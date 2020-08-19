@@ -35,13 +35,13 @@ function [best,best_candidate]= RSA_unique_NARX_det(data_NarxN)
     
     %create serach space to sample from
     tic;
-    dim_N1=3;
-    dim_N2=3;
+    dim_N1=7;
+    dim_N2=7;
     dim_TF1=2;
     dim_TF2=2;
     dim_TF3=2;
-    ID=3;
-    FD=3;
+    ID=6;
+    FD=7;
     
     
     
@@ -70,8 +70,8 @@ function [best,best_candidate]= RSA_unique_NARX_det(data_NarxN)
     
     
     %RSA options
-    maxTime=30;
-    numIter=16;
+    maxTime=1900;
+    numIter=15000;
     %candidate population
     rng('shuffle')
     candidate_indices=randsample(no_design_possibilites,numIter);

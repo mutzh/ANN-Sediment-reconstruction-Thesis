@@ -42,7 +42,7 @@ plot_functions={};
             
 results=bayesopt(objective_function,[Neurons_one,Neurons_two,tf1,tf2,tf3,id,fd],'IsObjectiveDeterministic',true,'Verbose',0,...
                 'MaxObjectiveEvaluations',10000,'PlotFcn',plot_functions,'NumSeedPoints',4,'AcquisitionFunctionName',...
-                'expected-improvement-plus','ExplorationRatio',0.6,'GPActiveSetSize',500,'MaxTime',3600);
+                'expected-improvement-plus','ExplorationRatio',0.6,'GPActiveSetSize',800,'MaxTime',1900);
 
 minObjective=results.MinObjective;
 bestNet=results.XAtMinObjective;

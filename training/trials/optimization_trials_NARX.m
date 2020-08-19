@@ -3,7 +3,7 @@
 load('data_NarxN.mat')
 
 
-no_trials=2;
+no_trials=10;
 
 
 Best_det=cell(3,no_trials);
@@ -23,14 +23,14 @@ for trial=1:no_trials
     [Best_noise{1,trial},best_cand_noise{1,trial}]=RSA_unique_NARX_noise(data_NarxN);
     [Best_noise{2,trial},best_cand_noise{2,trial}]=GA_NARX_noise(data_NarxN);
     [Best_noise{3,trial},best_cand_noise{3,trial}]=bayes_opt_NARX_noise(data_NarxN);
-    [Best_noise{4,trial},best_cand_noise{4,trial}]=GSA_NARX_noise(data_NarxN)
+    [Best_noise{4,trial},best_cand_noise{4,trial}]=GSA_NARX_noise(data_NarxN);
     
     [Best_rng{1,trial},best_cand_rng{1,trial}]=RSA_unique_NARX_rng(data_NarxN);
     [Best_rng{2,trial},best_cand_rng{2,trial}]=GA_NARX_rng(data_NarxN);
     [Best_rng{3,trial},best_cand_rng{3,trial}]=bayes_opt_NARX_rng(data_NarxN);
 end
 Best_of_all_trials_det=cell(3,2);
-Best_of_all_trials_noise=cell(3,2);
+Best_of_all_trials_noise=cell(4,2);
 Best_of_all_trials_rng=cell(3,2);
 
 %1)deterministic
@@ -47,13 +47,13 @@ Best_of_all_trials_det{1,2}=c;
 c=max(Best_det(2,:));
 a=Best_det(2,:)==c;
 b=best_cand_det(2,:);
-Best_of_all_trials_det{2}=b{a};
+Best_of_all_trials_det{2,1}=b{a};
 Best_of_all_trials_det{2,2}=c;
 %1.3)BO
 c=max(Best_det(3,:));
 a=Best_det(3,:)==c;
 b=best_cand_det(3,:);
-Best_of_all_trials_det{3}=b{a};
+Best_of_all_trials_det{3,1}=b{a};
 Best_of_all_trials_det{3,2}=c;
 
 
@@ -70,23 +70,29 @@ Best_noise=cell2mat(Best_noise);
 c=max(Best_noise(1,:));
 a=Best_noise(1,:)==c;
 b=best_cand_noise(1,:);
-Best_of_all_trials_noise{1}=b{a};
+Best_of_all_trials_noise{1,1}=b{a};
 Best_of_all_trials_noise{1,2}=c;
 %2.2)GA
 c=max(Best_noise(2,:));
 a=Best_noise(2,:)==c;
 b=best_cand_noise(2,:);
-Best_of_all_trials_noise{2}=b{a};
+Best_of_all_trials_noise{2,1}=b{a};
 Best_of_all_trials_noise{2,2}=c;
 %2.3)BO
 c=max(Best_noise(3,:));
 a=Best_noise(3,:)==c;
 b=best_cand_noise(3,:);
-Best_of_all_trials_noise{3}=b{a};
+Best_of_all_trials_noise{3,1}=b{a};
 Best_of_all_trials_noise{3,2}=c;
+%2.4)GSA
+c=max(Best_noise(4,:));
+a=Best_noise(4,:)==c;
+b=best_cand_noise(4,:);
+Best_of_all_trials_noise{4,1}=b{a};
+Best_of_all_trials_noise{4,2}=c;
 
 Best_noise=Best_noise';
-Best_noise(:,end+1)=0.8671;%add GSA manually
+
 
 
 
@@ -98,19 +104,19 @@ Best_rng=cell2mat(Best_rng);
 c=max(Best_rng(1,:));
 a=Best_rng(1,:)==c;
 b=best_cand_rng(1,:);
-Best_of_all_trials_rng{1}=b{a};
+Best_of_all_trials_rng{1,1}=b{a};
 Best_of_all_trials_rng{1,2}=c;
 %3.2)GA
 c=max(Best_rng(2,:));
 a=Best_rng(2,:)==c;
 b=best_cand_rng(2,:);
-Best_of_all_trials_rng{2}=b{a};
+Best_of_all_trials_rng{2,1}=b{a};
 Best_of_all_trials_rng{2,2}=c;
 %3.3)BO
 c=max(Best_rng(3,:));
 a=Best_rng(3,:)==c;
 b=best_cand_rng(3,:);
-Best_of_all_trials_rng{3}=b{a};
+Best_of_all_trials_rng{3,1}=b{a};
 Best_of_all_trials_rng{3,2}=c;
 
 Best_rng=Best_rng';

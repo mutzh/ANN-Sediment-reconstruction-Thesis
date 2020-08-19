@@ -28,11 +28,11 @@ stepTF2=1;
 dim_TF3=2;
 stepTF3=1;
 %
-ID=7;   %0,2,4,6
-stepID=2;
+ID=7;   %0,3,6
+stepID=3;
 %
-FD=7; %1,3,5,7
-stepFD=2;
+FD=7; %1,4,7
+stepFD=3;
 
 
 
@@ -41,7 +41,7 @@ stepFD=2;
 %muss manuell nachgeholfen werden!!
 
 % no_designs=((dim_N1-1)/stepN1+1)*((dim_N2-1)/stepN2+1)*(dim_TF1/stepTF1)*(dim_TF2/stepTF2)*(dim_TF3/stepTF3)*10;
-no_designs=((dim_N1-1)/(stepN1)+1)*((dim_N2-1)/(stepN2)+1)*(dim_TF1/stepTF1)*(dim_TF2/stepTF2)*(dim_TF3/stepTF3)*((ID-1)/stepID+2)*((FD-1)/stepFD+1); %für gerade step width
+no_designs=((dim_N1-1)/(stepN1)+1)*((dim_N2-1)/(stepN2)+1)*(dim_TF1/stepTF1)*(dim_TF2/stepTF2)*(dim_TF3/stepTF3)*((ID-1)/stepID+1)*((FD-1)/stepFD+1); %für gerade step width
 % no_designs=((dim_N1)/stepN1)*((dim_N2)/stepN2)*(dim_TF1/stepTF1)*(dim_TF2/stepTF2)*(dim_TF3/stepTF3)*(ID/stepID+1)*(FD/stepFD+1); % für ungerade step width
 design_space=zeros(no_designs,7);
 place=1;

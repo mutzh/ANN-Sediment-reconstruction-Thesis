@@ -25,7 +25,7 @@ function [func_RSA]=RSA_objective_NARX_det(data_NarxN) %außere funktion die die
     ID=X(6);
     FD=X(7);
  
-    rng(2);
+    rng(5);
     
     
     
