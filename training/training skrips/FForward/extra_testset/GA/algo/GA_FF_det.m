@@ -17,7 +17,7 @@ rng('shuffle');
 %vektor der die verschiedenen optionen für den genetischen algorithmus enthält, als
 %NAME/VALUE pairs
 plots={};%,@gaplotbestindiv,@gaplotexpectation}^;
-ga_opts=optimoptions('ga','Populationsize',30,'MaxGenerations',1000, 'Display','iter','PlotFcn',plots, 'maxTime',95,'EliteCount',2);
+ga_opts=optimoptions('ga','Populationsize',30,'MaxGenerations',1000, 'Display','off','PlotFcn',plots, 'maxTime',95,'EliteCount',2);
 
 IntCon=[1,2,3,4,5]; %unsere zu optimierenden variablen sind integer
 A = [];             %unbenutzte erwartete variablen des GA() leer lassen

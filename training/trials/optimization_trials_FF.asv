@@ -57,7 +57,7 @@ Best_of_all_trials_det{3,2}=c;
 
 
 Best_det=Best_det';
-Best_det(:,end+1)=0.6302;%add GSA manually
+Best_det(:,end+1)=0.8671;%add GSA manually
 
 
 
@@ -85,7 +85,7 @@ Best_of_all_trials_noise{3}=b{a};
 Best_of_all_trials_noise{3,2}=c;
 
 Best_noise=Best_noise';
-Best_noise(:,end+1)=0.6307;%add GSA manually
+Best_noise(:,end+1)=0.8671;%add GSA manually
 
 
 
@@ -113,7 +113,7 @@ Best_of_all_trials_rng{3}=b{a};
 Best_of_all_trials_rng{3,2}=c;
 
 Best_rng=Best_rng';
-Best_rng(:,end+1)=0.6302;%add GSA manually
+Best_rng(:,end+1)=0.8671;%add GSA manually
 
 
 %die besten kandidaten in ein array vereinigen

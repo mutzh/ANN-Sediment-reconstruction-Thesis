@@ -60,7 +60,7 @@ function [best,best_candidate]= RSA_unique_FF_rng(data_NarxN)
     
     %RSA options
     maxTime=445;
-    numIter=1000;
+    numIter=600;
     %candidate population
     rng('shuffle')
     %here it is decided which rows(designs) are going to be evaluated on the
