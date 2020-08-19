@@ -28,11 +28,11 @@ stepTF2=1;
 dim_TF3=2;
 stepTF3=1;
 %
-ID=7;   %0,2,4,6
-stepID=2;
+ID=7;   %0,3,6
+stepID=3;
 %
-FD=7; %1,3,5,7
-stepFD=2;
+FD=7; %1,4,7
+stepFD=3;
 
 
 
@@ -51,8 +51,8 @@ for a=1:stepN1:dim_N1
         for c=1:stepTF1:dim_TF1
             for d=1:stepTF2:dim_TF2
                 for e=1:stepTF3:dim_TF3
-                    for f=0:2:ID
-                        for g=1:2:FD
+                    for f=0:stepID:ID
+                        for g=1:stepFD:FD
                                 design=[a,b,c,d,e,f,g];
                                 design_space(place,:)=design;
                                 result=(feval(ObjFun,design));
