@@ -27,7 +27,7 @@ net.divideParam.trainRatio = 82.5/100;
 net.divideParam.valRatio = 17.5/100;
 net.divideParam.testRatio = 0/100;
 
-net.trainParam.epochs=50;
+net.trainParam.epochs=30;
 net.performParam.normalization='standard';
 net.trainParam.max_fail=4;
 
