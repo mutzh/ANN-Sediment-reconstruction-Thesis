@@ -27,8 +27,8 @@ nrun=1;
 TF=2;
 inputDelays = 6; %0:inputDelays
 feedbackDelays = 7;%1:feedbackDelays
-hidden1=7;
-hidden2=7;
+hidden1=10;
+hidden2=10;
 hiddenLayerSize = [hidden1,hidden2]; %4:5--> 2 hidden layers [4,5]
 
 
@@ -113,7 +113,6 @@ for z=1:nrun
     
     % Train the Network
     [net,tr] = train(net,x,t,xi,ai);
-    
     
     
     % % Recalculate Training, Validation and Test Performance
