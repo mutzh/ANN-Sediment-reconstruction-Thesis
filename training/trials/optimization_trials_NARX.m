@@ -3,7 +3,7 @@
 load('data_NarxN.mat')
 
 
-no_trials=10;
+no_trials=8;
 
 
 Best_det=cell(3,no_trials);
@@ -28,6 +28,8 @@ for trial=1:no_trials
     [Best_rng{1,trial},best_cand_rng{1,trial}]=RSA_unique_NARX_rng(data_NarxN);
     [Best_rng{2,trial},best_cand_rng{2,trial}]=GA_NARX_rng(data_NarxN);
     [Best_rng{3,trial},best_cand_rng{3,trial}]=bayes_opt_NARX_rng(data_NarxN);
+    
+    disp(trial);
 end
 Best_of_all_trials_det=cell(3,2);
 Best_of_all_trials_noise=cell(4,2);
@@ -58,7 +60,7 @@ Best_of_all_trials_det{3,2}=c;
 
 
 Best_det=Best_det';
-Best_det(:,end+1)=0.8671;%add GSA manually
+Best_det(:,end+1)=0.6617;%add GSA manually
 
 
 
@@ -120,12 +122,12 @@ Best_of_all_trials_rng{3,1}=b{a};
 Best_of_all_trials_rng{3,2}=c;
 
 Best_rng=Best_rng';
-Best_rng(:,end+1)=0.8671;%add GSA manually
+Best_rng(:,end+1)=0.6595;%add GSA manually
 
 
 
 %die besten kandidaten in ein array vereinigen
-best_candidates_overall=[Best_cand_of_all_trials_det;Best_cand_of_all_trials_noise;Best_cand_of_all_trials_rng];
+best_candidates_overall=[best_cand_det;best_cand_noise;best_cand_rng];
 
 
 

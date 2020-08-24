@@ -23,27 +23,34 @@ T = tonndata(TARGET,true,false);
 trainFcn = 'trainlm';  % Bayesian Regularization backpropagation.
 
 % Create a Nonlinear Autoregressive Network with External Input
-nrun=1;
+nrun=2000;
 TF=2;
+<<<<<<< HEAD
 inputDelays = 6; %0:inputDelays
 feedbackDelays = 7;%1:feedbackDelays
 hidden1=10;
 hidden2=10;
+=======
+inputDelays = 2; %0:inputDelays
+feedbackDelays = 2;%1:feedbackDelays
+hidden1=3;
+hidden2=3;
+>>>>>>> a306f9e7f9837ff9f2f5ec6a680a1f06eeaa80ee
 hiddenLayerSize = [hidden1,hidden2]; %4:5--> 2 hidden layers [4,5]
 
 
-
+tic;
 
 all_config_results=zeros(nrun,10);
 for z=1:nrun
-%     rng(z);
+    rng(z);
     %     rng('shuffle');
     
     net = narxnet([0:inputDelays],[1:feedbackDelays],hiddenLayerSize,'open',trainFcn);
     
-    net.trainParam.epochs=30;
-    net.performParam.normalization='standard';
-    net.trainParam.max_fail=4;
+    net.trainParam.epochs=20;%!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%      
+    net.trainParam.max_fail=3;%!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
     
     %transfer functions
@@ -89,7 +96,8 @@ for z=1:nrun
         net.layers{3}.transferFcn='purelin';
     end
     %-----------------------------------------------------------------
-    
+    net.trainParam.showWindow = 0;   % <== This does it
+                            
     
     
     % Prepare the Data for Training and Simulation
@@ -173,6 +181,6 @@ end
 all_config_results=sortrows(all_config_results,[1 4],{'descend' 'ascend'});
 
 
-
+toc
 
 
