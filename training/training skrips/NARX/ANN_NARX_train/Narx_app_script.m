@@ -25,10 +25,11 @@ trainFcn = 'trainlm';  % Bayesian Regularization backpropagation.
 % Create a Nonlinear Autoregressive Network with External Input
 nrun=2000;
 TF=2;
-inputDelays = 2; %0:inputDelays
-feedbackDelays = 2;%1:feedbackDelays
-hidden1=3;
-hidden2=3;
+inputDelays = 6; %0:inputDelays
+feedbackDelays = 7;%1:feedbackDelays
+hidden1=10;
+hidden2=10;
+
 hiddenLayerSize = [hidden1,hidden2]; %4:5--> 2 hidden layers [4,5]
 
 
@@ -114,7 +115,6 @@ for z=1:nrun
     
     % Train the Network
     [net,tr] = train(net,x,t,xi,ai);
-    
     
     
     % % Recalculate Training, Validation and Test Performance
