@@ -47,10 +47,16 @@ for i=1:length(best_cand_overall)
     %get hyperparameter set from the best candidates
     HP_candidate=best_cand_overall(i);
     HP_candidate=cell2mat(HP_candidate);
-
+<<<<<<< HEAD
+    % Choose a Training Function
+    trainFcn = 'trainlm';  %
+    
+    % Create a Nonlinear Autoregressive Network with External Input
+=======
+    
     % define structure and training parameters of the network
     trainFcn = 'trainlm';  % 
-
+>>>>>>> de29d2b25d407b454242fa562c63cea182e92973
     TF1=HP_candidate(3);
     TF2=HP_candidate(4);
     TF3=HP_candidate(5);
@@ -66,7 +72,11 @@ for i=1:length(best_cand_overall)
     
     
     for z=1:nrun
-
+<<<<<<< HEAD
+        %             rng(5);
+        
+=======
+>>>>>>> de29d2b25d407b454242fa562c63cea182e92973
         
 %       Create a Nonlinear Autoregressive Network with External Input
 
@@ -160,10 +170,16 @@ for i=1:length(best_cand_overall)
         net.divideParam.testRatio = 0/100;
         net.performParam.normalization='standard'; %normalization
         
-
+<<<<<<< HEAD
+        
+        
+        
+        
+        %         rng('shuffle')
+=======
         %shuffle rng
         rng('shuffle');
-
+>>>>>>> de29d2b25d407b454242fa562c63cea182e92973
         % Train the Network
         [net,tr] = train(net,x,t,xi,ai);
         %return rng state
@@ -188,7 +204,7 @@ for i=1:length(best_cand_overall)
         % view(netc)
         [xc,xic,aic,tc] = preparets(netc,X_test,{},T_test);
         yc = netc(xc,xic,aic);
-
+<<<<<<< HEAD
         [NSE_t] = ns_efficiency(cell2mat(tc),cell2mat(yc));
         
         
@@ -200,7 +216,8 @@ for i=1:length(best_cand_overall)
         %         Ts_RMSE=(Ts_mse)^.5;
         % %         [r,m,b]=regression(tc,yc);
         %         % % %     figure;
-        %         % % %     plotregression(tc,yc); 
+        %         % % %     plotregression(tc,yc);
+
         
         
         %Performance on the wholeset
