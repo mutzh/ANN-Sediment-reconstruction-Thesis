@@ -1,5 +1,5 @@
 load('GSA_noise')
-load('WS_testing_opti_trials_FF')
+load('opti_trials_FF_final')
 
 
 
@@ -107,6 +107,9 @@ Best_rng(:,end)=0.6302;%add GSA manually
 
 
 %die besten kandidaten in ein array vereinigen
+best_cand_det(end+1,:)={[11,11,2,1,1]};
+best_cand_noise=[best_cand_noise;best_cand_noiseA(4,:)];
+best_cand_rng(end+1,:)={[11,11,2,1,1]};
 best_candidates_overall=[Best_of_all_trials_det;Best_of_all_trials_noise;Best_of_all_trials_rng];
 
 

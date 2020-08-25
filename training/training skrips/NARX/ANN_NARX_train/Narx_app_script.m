@@ -2,7 +2,7 @@
 % close all
 % clc
 
-load('data_NarxN')
+load('data_NarxN');
 rng('shuffle');
 
 X_whole=data_NarxN(:,1)';
@@ -22,17 +22,16 @@ T = tonndata(TARGET,true,false);
 
 
 
-
 % Choose a Training Function
-trainFcn = 'trainlm';  % Bayesian Regularization backpropagation.
+trainFcn = 'trainlm';  % 
 
 % Create a Nonlinear Autoregressive Network with External Input
-nrun=100;
+nrun=1;
 TF=2;
-inputDelays = 6; %0:inputDelays
+inputDelays = 2; %0:inputDelays
 feedbackDelays = 7;%1:feedbackDelays
-hidden1=10;
-hidden2=10;
+hidden1=7;
+hidden2=4;
 
 hiddenLayerSize = [hidden1,hidden2]; %4:5--> 2 hidden layers [4,5]
 
@@ -41,7 +40,7 @@ tic;
 
 all_config_results=zeros(nrun,11);
 for z=1:nrun
-    rng(z);
+    rng(5);
     %     rng('shuffle');
     
     net = narxnet([0:inputDelays],[1:feedbackDelays],hiddenLayerSize,'open',trainFcn);
@@ -112,6 +111,8 @@ for z=1:nrun
     net.divideParam.trainRatio = 82.5/100;
     net.divideParam.valRatio = 17.5/100;
     net.divideParam.testRatio = 0/100;
+    net.performParam.normalization='standard'; %normalization
+
     
     
     

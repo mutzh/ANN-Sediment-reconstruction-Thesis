@@ -126,24 +126,36 @@ Best_rng(:,end+1)=0.6595;%add GSA manually
 
 
 
-%die besten kandidaten in ein array vereinigen
-best_candidates_overall=[best_cand_det;best_cand_noise;best_cand_rng];
+%die besten kandidaten in ein array vereinigen, aber zuerst die kandidaten aus den
+%manuellen GSA runs hinzufügen
+%1) manuell GSA hinzufügen
+best_cand_det(end+1,:)={[7,1,2,1,1,3,7]};
+best_cand_rng(end+1,:)={[4,4,1,2,1,6,7]};
 
-
-
+Best_of_all_trials_det(end+1,1)={[7,1,2,1,1,3,7]};
+Best_of_all_trials_det(end,2)={0.6617};
+Best_of_all_trials_rng(end+1,1)={[4,4,1,2,1,6,7]};
+Best_of_all_trials_rng(end,2)={0.6595};
+%2)beste candidaten der einzelnen trials in einen spaltenvektor vereinen, um diesen
+%später durch Narx_app_script zu jagen
+best_cand_overall=[best_cand_det',best_cand_noise',best_cand_rng'];
+best_cand_overall=[best_cand_overall(:,1);best_cand_overall(:,2);best_cand_overall(:,3);best_cand_overall(:,4);best_cand_overall(:,5);best_cand_overall(:,6);best_cand_overall(:,7);best_cand_overall(:,8);;best_cand_overall(:,9);;best_cand_overall(:,10);;best_cand_overall(:,11);;best_cand_overall(:,12)];
+%3) spaltenvektor mit den den 12 besten candidaten für jedes setup. also jeweils der
+%beste aus allen 8 trials!!
+Best_of_all_trials_overall=[Best_of_all_trials_det;Best_of_all_trials_noise;Best_of_all_trials_rng];
 
 figure;
 boxplot(Best_det)
-title('RandsearchDet                     GaDet                              BayesoptDet              GridsearchDet')
+title('RandsearchFixed                     GaFixed                              BayesoptFixed             GridsearchFixed')
 ylabel('NSE')
 
 figure;
 boxplot(Best_noise)
-title('RandsearchNoise                 GaNoise                              BayesoptNoise               GridsearchNoise')
+title('RandsearchStochast                 GaStochast                             BayesoptStochast               GridsearchStochast')
 ylabel('NSE')
 
 figure;
 boxplot(Best_rng)
-title('RandsearchRng                     GaRng                               BayesoptRng               GridsearchRng')
+title('RandsearchHP                     GaHP                              BayesoptHP             GridsearchHP')
 ylabel('NSE')
 

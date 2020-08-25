@@ -17,14 +17,22 @@ function [func_RSA]=RSA_objective_NARX_det(data_NarxN) %außere funktion die die
     %Der input vector "X" enthält die zu optimierenden hyperparameter, welche
     %der bayesopt ausprobiert und an unsere objective function übergibt um sie zu
     %evaluieren
-    N1=X(1);
-    N2=X(2);
-    TF1=X(3);
-    TF2=X(4);
-    TF3=X(5);
-    ID=X(6);
-    FD=X(7);
+%     N1=X(1);
+%     N2=X(2);
+%     TF1=X(3);
+%     TF2=X(4);
+%     TF3=X(5);
+%     ID=X(6);
+%     FD=X(7);
  
+    N1=7;
+    N2=4;
+    TF1=1;
+    TF2=1;
+    TF3=2;
+    ID=2;
+    FD=7;
+    
     rng(5);
     
     
