@@ -38,7 +38,7 @@ X = tonndata(INPUT,true,false);
 T = tonndata(TARGET,true,false);
 
 
-nrun=2;
+nrun=50;
 % best_cand_overall=best_cand_overall(1:10,:);  %gekürzt zum testen
 
 all_config_results=zeros(length(best_cand_overall)*nrun,10);
@@ -47,10 +47,9 @@ for i=1:length(best_cand_overall)
     HP_candidate=best_cand_overall(i);
     HP_candidate=cell2mat(HP_candidate);
     % Choose a Training Function
-    trainFcn = 'trainlm';  % 
+    trainFcn = 'trainlm';  %
     
     % Create a Nonlinear Autoregressive Network with External Input
-    nrun=2;
     TF1=HP_candidate(3);
     TF2=HP_candidate(4);
     TF3=HP_candidate(5);
@@ -66,7 +65,7 @@ for i=1:length(best_cand_overall)
     
     
     for z=1:nrun
-%             rng(5);
+        %             rng(5);
         
         
         net = narxnet([0:inputDelays],[1:feedbackDelays],hiddenLayerSize,'open',trainFcn);
@@ -158,12 +157,12 @@ for i=1:length(best_cand_overall)
         net.divideParam.valRatio = 17.5/100;
         net.divideParam.testRatio = 0/100;
         net.performParam.normalization='standard'; %normalization
-
         
         
         
         
-%         rng('shuffle')
+        
+        %         rng('shuffle')
         % Train the Network
         [net,tr] = train(net,x,t,xi,ai);
         
@@ -188,18 +187,18 @@ for i=1:length(best_cand_overall)
         % view(netc)
         [xc,xic,aic,tc] = preparets(netc,X_test,{},T_test);
         yc = netc(xc,xic,aic);
-        
-        
-        %Performance on the testset
-        Ts_e=gsubtract(tc,yc);
-        Ts_e=cell2mat(Ts_e);
-        % Ts_PBIAS=sum(Ts_e*100)/sum(TARGET);
-        Ts_mse=mse(Ts_e);
-        Ts_RMSE=(Ts_mse)^.5;
         [NSE_t] = ns_efficiency(cell2mat(tc),cell2mat(yc));
-        [r,m,b]=regression(tc,yc);
-        % % %     figure;
-        % % %     plotregression(tc,yc);
+        
+        
+        %         %Performance on the testset
+        %         Ts_e=gsubtract(tc,yc);
+        %         Ts_e=cell2mat(Ts_e);
+        %         % Ts_PBIAS=sum(Ts_e*100)/sum(TARGET);
+        %         Ts_mse=mse(Ts_e);
+        %         Ts_RMSE=(Ts_mse)^.5;
+        % %         [r,m,b]=regression(tc,yc);
+        %         % % %     figure;
+        %         % % %     plotregression(tc,yc);
         
         
         %Performance on the wholeset
@@ -245,14 +244,13 @@ Boxplot_matrix_wholeset=[all_config_results(1:count,2),all_config_results(1+coun
 
 
 %visualize the testset NSE via boxplot and bargraph(based on mean)
-figure;
-boxplot(Boxplot_matrix_testset)
+cmd
 title('all setups in order: fixed[RSA,GA,BO,GSA],stochast[RSA,GA,BO,GSA],HP[RSA,GA,BO,GSA]')
 ylabel('testset NSE')
 
 means_testset=mean(Boxplot_matrix_testset,1);
-x=categorical({'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA_stochast','RSA HP','GA HP','BO HP','GSA HP'});
-x=reordercats(x,{'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA_stochast','RSA HP','GA HP','BO HP','GSA HP'});
+x=categorical({'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
+x=reordercats(x,{'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
 
 figure
 bar(x,means_testset)
@@ -266,8 +264,8 @@ title('all setups in order: fixed[RSA,GA,BO,GSA],stochast[RSA,GA,BO,GSA],HP[RSA,
 ylabel('wholeset NSE')
 
 means_wholeset=mean(Boxplot_matrix_wholeset,2);
-x=categorical({'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA_stochast','RSA HP','GA HP','BO HP','GSA HP'});
-x=reordercats(x,{'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA_stochast','RSA HP','GA HP','BO HP','GSA HP'});
+x=categorical({'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
+x=reordercats(x,{'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
 
 figure
 bar(x,means_wholeset)
