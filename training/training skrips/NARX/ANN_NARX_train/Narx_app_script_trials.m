@@ -21,7 +21,7 @@
 
 load('opti_trials_NARX_final');
 load('data_NarxN');
-rng('shuffle');
+
 
 X_whole=data_NarxN(:,1)';
 T_whole=data_NarxN(:,2)';
@@ -44,13 +44,12 @@ nrun=2;
 all_config_results=zeros(length(best_cand_overall)*nrun,10);
 for i=1:length(best_cand_overall)
     
+    %get hyperparameter set from the best candidates
     HP_candidate=best_cand_overall(i);
     HP_candidate=cell2mat(HP_candidate);
-    % Choose a Training Function
-    trainFcn = 'trainlm';  % 
     
-    % Create a Nonlinear Autoregressive Network with External Input
-    nrun=2;
+    % define structure and training parameters of the network
+    trainFcn = 'trainlm';  % 
     TF1=HP_candidate(3);
     TF2=HP_candidate(4);
     TF3=HP_candidate(5);
@@ -66,16 +65,17 @@ for i=1:length(best_cand_overall)
     
     
     for z=1:nrun
-%             rng(5);
         
-        
+%       Create a Nonlinear Autoregressive Network with External Input
+
         net = narxnet([0:inputDelays],[1:feedbackDelays],hiddenLayerSize,'open',trainFcn);
         
         net.trainParam.epochs=30;%!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
         net.trainParam.max_fail=4;%!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         
-        
+        net.trainParam.showWindow = 0;   % <== This does it
+
         %transfer functions
         %-----------------------------------------------------------------
         if TF1==1
@@ -139,7 +139,6 @@ for i=1:length(best_cand_overall)
         % % %         net.layers{3}.transferFcn='purelin';
         % % %     end
         %-----------------------------------------------------------------
-        net.trainParam.showWindow = 0;   % <== This does it
         
         
         
@@ -160,17 +159,15 @@ for i=1:length(best_cand_overall)
         net.performParam.normalization='standard'; %normalization
 
         
-        
-        
-        
-%         rng('shuffle')
+        %shuffle rng
+        rng('shuffle');
         % Train the Network
         [net,tr] = train(net,x,t,xi,ai);
-        
         %return rng state
-        seed=rng;
-        rng_state=seed.Seed;
+        rng_seed=rng;
+        rng_state=rng_seed.Seed;
         
+        rng('shuffle');
         
         % % Recalculate Training, Validation and Test Performance
         % trainTargets = gmultiply(t,tr.trainMask);
@@ -188,16 +185,15 @@ for i=1:length(best_cand_overall)
         % view(netc)
         [xc,xic,aic,tc] = preparets(netc,X_test,{},T_test);
         yc = netc(xc,xic,aic);
-        
+         [NSE_t] = ns_efficiency(cell2mat(tc),cell2mat(yc));
         
         %Performance on the testset
-        Ts_e=gsubtract(tc,yc);
-        Ts_e=cell2mat(Ts_e);
+%         Ts_e=gsubtract(tc,yc);
+%         Ts_e=cell2mat(Ts_e);
         % Ts_PBIAS=sum(Ts_e*100)/sum(TARGET);
-        Ts_mse=mse(Ts_e);
-        Ts_RMSE=(Ts_mse)^.5;
-        [NSE_t] = ns_efficiency(cell2mat(tc),cell2mat(yc));
-        [r,m,b]=regression(tc,yc);
+%         Ts_mse=mse(Ts_e);
+%         Ts_RMSE=(Ts_mse)^.5;    
+%         [r,m,b]=regression(tc,yc);
         % % %     figure;
         % % %     plotregression(tc,yc);
         
@@ -223,11 +219,13 @@ for i=1:length(best_cand_overall)
         
     end
 end
+% all_config_results=sortrows(all_config_results,[1 4],{'descend' 'ascend'});
 
 
 %extract the 12 setups from the results so that each setup is represented by a
 %coulumn
-count=8*nrun;
+count=8*nrun;%8 because we ran 8 trials of the optimization setups for the NARX net
+
 Boxplot_matrix_testset=[all_config_results(1:count,1),all_config_results(1+count:count*2,1),...
     all_config_results(1+count*2:count*3,1),all_config_results(1+count*3:count*4,1),...
     all_config_results(1+count*4:count*5,1),all_config_results(1+count*5:count*6,1),...
@@ -240,9 +238,7 @@ Boxplot_matrix_wholeset=[all_config_results(1:count,2),all_config_results(1+coun
     all_config_results(1+count*4:count*5,2),all_config_results(1+count*5:count*6,2),...
     all_config_results(1+count*6:count*7,2),all_config_results(1+count*7:count*8,2),...
     all_config_results(1+count*8:count*9,2),all_config_results(1+count*9:count*10,2),...
-    all_config_results(1+count*10:count*11,2),all_config_results(1+count*11:count*12,2)];
-% all_config_results=sortrows(all_config_results,[1 4],{'descend' 'ascend'});
-
+    all_config_results(1+count*10:count*11,2),all_config_results(1+count*11:count*12,2)];;
 
 %visualize the testset NSE via boxplot and bargraph(based on mean)
 figure;
@@ -251,8 +247,8 @@ title('all setups in order: fixed[RSA,GA,BO,GSA],stochast[RSA,GA,BO,GSA],HP[RSA,
 ylabel('testset NSE')
 
 means_testset=mean(Boxplot_matrix_testset,1);
-x=categorical({'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA_stochast','RSA HP','GA HP','BO HP','GSA HP'});
-x=reordercats(x,{'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA_stochast','RSA HP','GA HP','BO HP','GSA HP'});
+x=categorical({'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
+x=reordercats(x,{'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
 
 figure
 bar(x,means_testset)
@@ -266,8 +262,8 @@ title('all setups in order: fixed[RSA,GA,BO,GSA],stochast[RSA,GA,BO,GSA],HP[RSA,
 ylabel('wholeset NSE')
 
 means_wholeset=mean(Boxplot_matrix_wholeset,2);
-x=categorical({'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA_stochast','RSA HP','GA HP','BO HP','GSA HP'});
-x=reordercats(x,{'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA_stochast','RSA HP','GA HP','BO HP','GSA HP'});
+x=categorical({'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
+x=reordercats(x,{'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
 
 figure
 bar(x,means_wholeset)

@@ -5,7 +5,12 @@
 % This script assumes these variables are defined:
 %
 load('data_NarxN')
+load('opti_trials_FF_final')
 
+
+
+X_whole=data_NarxN(:,1)';
+T_whole=data_NarxN(:,2)';
 X_test=data_NarxN(1:2809,1)';
 T_test=data_NarxN(1:2809,2)';
 X=data_NarxN(2810:end,1)';
@@ -13,97 +18,211 @@ T=data_NarxN(2810:end,2)';
 
 
 % Create a Fitting Network
-hiddenLayerSize = [11,11];
-TF=5;
-rng(5);
+nrun=50;
+% best_cand_overall=best_cand_overall(1:10,:);  %gekürzt zum testen
 
-net = feedforwardnet(hiddenLayerSize);
-
-
-% Setup Division of Data for Training, Validation, Testing
-% For a list of all data division functions type: help nndivision
-net.divideFcn = 'dividerand';  % Divide data randomly
-net.divideParam.trainRatio = 82.5/100;
-net.divideParam.valRatio = 17.5/100;
-net.divideParam.testRatio = 0/100;
-
-net.trainParam.epochs=30;
-net.performParam.normalization='standard';
-net.trainParam.max_fail=4;
-
-
-%transfer functions
-%-----------------------------------------------------------------
-if TF==1
-        net.layers{1}.transferFcn='tansig';
-        net.layers{2}.transferFcn='tansig';
-        net.layers{3}.transferFcn='tansig';
+all_config_results=zeros(length(best_cand_overall)*nrun,8);
+for i=1:length(best_cand_overall)
+    
+    %get hyperparameter set from the best candidates
+    HP_candidate=best_cand_overall(i);
+    HP_candidate=cell2mat(HP_candidate);
+    
+    % define structure and training parameters of the network
+    trainFcn = 'trainlm';  %
+    TF1=HP_candidate(3);
+    TF2=HP_candidate(4);
+    TF3=HP_candidate(5);
+    hidden1=HP_candidate(1);
+    hidden2=HP_candidate(2);
+    
+    hiddenLayerSize = [hidden1,hidden2]; %4:5--> 2 hidden layers [4,5]
+    
+    for z=1:nrun
+        %create feedforward net
+        net = feedforwardnet(hiddenLayerSize,trainFcn);
+        
+        
+        % Setup Division of Data for Training, Validation, Testing
+        % For a list of all data division functions type: help nndivision
+        net.divideFcn = 'dividerand';  % Divide data randomly
+        net.divideParam.trainRatio = 82.5/100;
+        net.divideParam.valRatio = 17.5/100;
+        net.divideParam.testRatio = 0/100;
+        
+        net.trainParam.epochs=30;
+        net.performParam.normalization='standard';
+        net.trainParam.max_fail=4;
+        
+        net.trainParam.showWindow = 0;   % <== This does it
+        
+        
+        %transfer functions
+        %-----------------------------------------------------------------
+        if TF1==1
+            net.layers{1}.transferFcn='tansig';
+        elseif TF1==2
+            net.layers{1}.transferFcn='logsig';
+        end
+        
+        
+        if TF2==1
+            net.layers{2}.transferFcn='tansig';
+        elseif TF2==2
+            net.layers{2}.transferFcn='logsig';
+        end
+        
+        
+        if TF3==1
+            net.layers{3}.transferFcn='tansig';
+            
+        elseif TF3==2
+            net.layers{3}.transferFcn='purelin';
+        end
+        % % % if TF==1
+        % % %         net.layers{1}.transferFcn='tansig';
+        % % %         net.layers{2}.transferFcn='tansig';
+        % % %         net.layers{3}.transferFcn='tansig';
+        % % % end
+        % % % if TF==2
+        % % %         net.layers{1}.transferFcn='tansig';
+        % % %         net.layers{2}.transferFcn='tansig';
+        % % %         net.layers{3}.transferFcn='purelin';
+        % % % end
+        % % % if TF==3
+        % % %         net.layers{1}.transferFcn='tansig';
+        % % %         net.layers{2}.transferFcn='logsig';
+        % % %         net.layers{3}.transferFcn='tansig';
+        % % % end
+        % % % if TF==4
+        % % %         net.layers{1}.transferFcn='tansig';
+        % % %         net.layers{2}.transferFcn='logsig';
+        % % %         net.layers{3}.transferFcn='purelin';
+        % % % end
+        % % % if TF==5
+        % % %         net.layers{1}.transferFcn='logsig';
+        % % %         net.layers{2}.transferFcn='tansig';
+        % % %         net.layers{3}.transferFcn='tansig';
+        % % % end
+        % % % if TF==6
+        % % %         net.layers{1}.transferFcn='logsig';
+        % % %         net.layers{2}.transferFcn='tansig';
+        % % %         net.layers{3}.transferFcn='purelin';
+        % % % end
+        % % % if TF==7
+        % % %         net.layers{1}.transferFcn='logsig';
+        % % %         net.layers{2}.transferFcn='logsig';
+        % % %         net.layers{3}.transferFcn='tansig';
+        % % % end
+        % % % if TF==8
+        % % %         net.layers{1}.transferFcn='logsig';
+        % % %         net.layers{2}.transferFcn='logsig';
+        % % %         net.layers{3}.transferFcn='purelin';
+        % % % end
+        %-----------------------------------------------------------------
+        
+        %shuffle rng
+        rng('shuffle');
+        % Train the Network
+        [net,tr] = train(net,X,T);
+        %return rng state
+        seed=rng;
+        rng_state=seed.Seed;
+        
+        
+        % % Test the Network
+        % y = net(X);
+        % e = gsubtract(T,y);
+        % performance = perform(net,T,y)
+        %
+        % % Recalculate Training, Validation and Test Performance
+        % trainTargets = T .* tr.trainMask{1};
+        % valTargets = T .* tr.valMask{1};
+        % % testTargets = T .* tr.testMask{1};
+        % % trainPerformance = perform(net,trainTargets,y)
+        % valPerformance = perform(net,valTargets,y)
+        
+        
+        %calculate NSE on exta test set
+        output = net(X_test);
+        [NSE_t] = ns_efficiency(T_test,output);
+        
+        % Ts_e=gsubtract(T_test,output)
+        % Ts_PBIAS=sum(Ts_e*100)/sum(TARGET);
+        % Ts_mse=mse(Ts_e)
+        % Ts_RMSE=(Ts_mse)^.5
+        % figure;
+        % plotregression(T_test,output);
+        
+        %calculate NSE on wholeset
+        output = net(X_whole);
+        [NSE_w] = ns_efficiency(T_whole,output);
+        
+        
+        %----------------SAVE RESULTS--------------------------
+        %für die auswertung der opti trials einfach nur NSE_t und NSW_w verwenden
+        configuration= [hidden1,hidden2,TF1,TF2,TF3,rng_state];
+        configuration=double(configuration);
+        configuration_results=[NSE_t NSE_w configuration];
+        % % %     configuration_string=[sprintf('_%d') num2str(z) sprintf('_%d') num2str(inputDelays) sprintf('_%d') num2str(feedbackDelays) sprintf('_%d') num2str(TF) sprintf('_%d') num2str(hidden1) sprintf('_%d') num2str(hidden2)];
+        % % %     filename = sprintf('net%s.mat',configuration_string);
+        % % %     save(fullfile(pwd,'\save_nets\', filename ), 'net')
+        
+        
+        all_config_results((i-1)*nrun+z,:)=configuration_results;
+        %--------------END TO SAVE RESULTS---------------------
+    end
 end
-if TF==2
-        net.layers{1}.transferFcn='tansig';
-        net.layers{2}.transferFcn='tansig';
-        net.layers{3}.transferFcn='purelin';
-end
-if TF==3
-        net.layers{1}.transferFcn='tansig';
-        net.layers{2}.transferFcn='logsig';
-        net.layers{3}.transferFcn='tansig';
-end
-if TF==4
-        net.layers{1}.transferFcn='tansig';
-        net.layers{2}.transferFcn='logsig';
-        net.layers{3}.transferFcn='purelin';
-end
-if TF==5
-        net.layers{1}.transferFcn='logsig';
-        net.layers{2}.transferFcn='tansig';
-        net.layers{3}.transferFcn='tansig';
-end
-if TF==6
-        net.layers{1}.transferFcn='logsig';
-        net.layers{2}.transferFcn='tansig';
-        net.layers{3}.transferFcn='purelin';
-end
-if TF==7
-        net.layers{1}.transferFcn='logsig';
-        net.layers{2}.transferFcn='logsig';
-        net.layers{3}.transferFcn='tansig';
-end
-if TF==8
-        net.layers{1}.transferFcn='logsig';
-        net.layers{2}.transferFcn='logsig';
-        net.layers{3}.transferFcn='purelin';
-end
-%-----------------------------------------------------------------
+
+% all_config_results=sortrows(all_config_results,[1 4],{'descend' 'ascend'});
 
 
-% Train the Network
-[net,tr] = train(net,X,T);
+%extract the 12 setups from the results so that each setup is represented by a
+%coulumn
+count=10*nrun; %10 because we ran 10 trials of the optimization setups for the feedforward net
 
-% % Test the Network
-% y = net(X);
-% e = gsubtract(T,y);
-% performance = perform(net,T,y)
-% 
-% % Recalculate Training, Validation and Test Performance
-% trainTargets = T .* tr.trainMask{1};
-% valTargets = T .* tr.valMask{1};
-% % testTargets = T .* tr.testMask{1};
-% % trainPerformance = perform(net,trainTargets,y)
-% valPerformance = perform(net,valTargets,y)
+Boxplot_matrix_testset=[all_config_results(1:count,1),all_config_results(1+count:count*2,1),...
+    all_config_results(1+count*2:count*3,1),all_config_results(1+count*3:count*4,1),...
+    all_config_results(1+count*4:count*5,1),all_config_results(1+count*5:count*6,1),...
+    all_config_results(1+count*6:count*7,1),all_config_results(1+count*7:count*8,1),...
+    all_config_results(1+count*8:count*9,1),all_config_results(1+count*9:count*10,1),...
+    all_config_results(1+count*10:count*11,1),all_config_results(1+count*11:count*12,1)];
+
+Boxplot_matrix_wholeset=[all_config_results(1:count,2),all_config_results(1+count:count*2,2),...
+    all_config_results(1+count*2:count*3,2),all_config_results(1+count*3:count*4,2),...
+    all_config_results(1+count*4:count*5,2),all_config_results(1+count*5:count*6,2),...
+    all_config_results(1+count*6:count*7,2),all_config_results(1+count*7:count*8,2),...
+    all_config_results(1+count*8:count*9,2),all_config_results(1+count*9:count*10,2),...
+    all_config_results(1+count*10:count*11,2),all_config_results(1+count*11:count*12,2)];
 
 
-%calculate NSE on exta test set
-output = net(X_test);
-[NSE] = ns_efficiency(T_test,output)
 
-Ts_e=gsubtract(T_test,output);
-Ts_e=Ts_e;
-% Ts_PBIAS=sum(Ts_e*100)/sum(TARGET);
-Ts_mse=mse(Ts_e)
-Ts_RMSE=(Ts_mse)^.5
-
+%visualize the testset NSE via boxplot and bargraph(based on mean)
 figure;
-plotregression(T_test,output);
+boxplot(Boxplot_matrix_testset)
+title('all setups in order: fixed[RSA,GA,BO,GSA],stochast[RSA,GA,BO,GSA],HP[RSA,GA,BO,GSA]')
+ylabel('testset NSE')
 
+means_testset=mean(Boxplot_matrix_testset,1);
+x=categorical({'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
+x=reordercats(x,{'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
 
+figure
+bar(x,means_testset)
+title('MEAN :all setups in order: det[RSA,GA,BO,GSA],noise[RSA,GA,BO,GSA],rng[RSA,GA,BO,GSA]')
+ylabel('testset NSE')
+
+%visualize the wholeset NSE via boxplot and bargraph(based on mean)
+figure;
+boxplot(Boxplot_matrix_wholeset)
+title('all setups in order: fixed[RSA,GA,BO,GSA],stochast[RSA,GA,BO,GSA],HP[RSA,GA,BO,GSA]')
+ylabel('wholeset NSE')
+
+means_wholeset=mean(Boxplot_matrix_wholeset,1);
+x=categorical({'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
+x=reordercats(x,{'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
+
+figure
+bar(x,means_wholeset)
+title('MEAN :all setups in order: det[RSA,GA,BO,GSA],noise[RSA,GA,BO,GSA],rng[RSA,GA,BO,GSA]')
+ylabel('wholeset NSE')

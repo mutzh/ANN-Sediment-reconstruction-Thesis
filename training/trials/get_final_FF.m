@@ -98,35 +98,45 @@ a=Best_rng(3,:)==c;
 b=best_cand_rng(3,:);
 Best_of_all_trials_rng{3,1}=b{a};
 Best_of_all_trials_rng{3,2}=c;
-%3.4)GSA
 
 
 
-% Best_rng=Best_rng';
-Best_rng(:,end)=0.6302;%add GSA manually
 
 
-%die besten kandidaten in ein array vereinigen
+
+%1)die besten 120 kandidaten (10 trials, 12 setups) in ein array vereinigen
+%dafür zuerst die kandidaten aus GSA ergänzen
 best_cand_det(end+1,:)={[11,11,2,1,1]};
 best_cand_noise=[best_cand_noise;best_cand_noiseA(4,:)];
 best_cand_rng(end+1,:)={[11,11,2,1,1]};
-best_candidates_overall=[Best_of_all_trials_det;Best_of_all_trials_noise;Best_of_all_trials_rng];
+%dann array erstellen daraus
+best_cand_overall=[best_cand_det',best_cand_noise',best_cand_rng'];
+best_cand_overall=[best_cand_overall(:,1);best_cand_overall(:,2);best_cand_overall(:,3);best_cand_overall(:,4);best_cand_overall(:,5);best_cand_overall(:,6);best_cand_overall(:,7);best_cand_overall(:,8);;best_cand_overall(:,9);;best_cand_overall(:,10);;best_cand_overall(:,11);;best_cand_overall(:,12)];
 
 
 
+%3) spaltenvektor mit den den 12 besten candidaten für jedes setup. also jeweils der
+%beste aus allen 8 trials!
+% dafür erstmal bei best of all trials noch die GSA ergebnisse eintragen
+Best_of_all_trials_det(end+1,1)={[11,11,2,1,1]};
+Best_of_all_trials_det(end,2)={0.6302};
+Best_of_all_trials_rng(end+1,1)={[11,11,2,1,1]};
+Best_of_all_trials_rng(end,2)={0.6302};
+%dann erstellen 
+best_of_all_trials_overall=[Best_of_all_trials_det;Best_of_all_trials_noise;Best_of_all_trials_rng];
 
 figure;
 boxplot(Best_det)
-title('RandsearchDet                     GaDet                              BayesoptDet              GridsearchDet')
+title('RandsearchFixed                     GaFixed                              BayesoptFixed               GridsearchFixed  ')
 ylabel('NSE')
 
 figure;
 boxplot(Best_noise)
-title('RandsearchNoise                 GaNoise                              BayesoptNoise               GridsearchNoise')
+title('RandsearchStochast               GaStochast                            BayesoptStochast             GridsearchStochast')
 ylabel('NSE')
 
 figure;
 boxplot(Best_rng)
-title('RandsearchRng                     GaRng                               BayesoptRng               GridsearchRng')
+title('RandsearchHP                  GaHP                             BayesoptHP             GridsearchHP')
 ylabel('NSE')
 
