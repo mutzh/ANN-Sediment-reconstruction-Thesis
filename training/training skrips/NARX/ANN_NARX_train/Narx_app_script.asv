@@ -27,7 +27,7 @@ T = tonndata(TARGET,true,false);
 trainFcn = 'trainlm';  % Bayesian Regularization backpropagation.
 
 % Create a Nonlinear Autoregressive Network with External Input
-nrun=100;
+nrun=2;
 TF=2;
 inputDelays = 6; %0:inputDelays
 feedbackDelays = 7;%1:feedbackDelays
@@ -46,9 +46,9 @@ for z=1:nrun
     
     net = narxnet([0:inputDelays],[1:feedbackDelays],hiddenLayerSize,'open',trainFcn);
     
-    net.trainParam.epochs=30;%!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      
-    net.trainParam.max_fail=4;%!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    net.trainParam.epochs=20;%!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+%      
+    net.trainParam.max_fail=3;%!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     
     
     %transfer functions
@@ -158,7 +158,7 @@ for z=1:nrun
     
     
     %----------------SAVE RESULTS--------------------------
-    %für die auswertung der opti trials einfach nur NSE_t und NSW_w verwenden
+    %für die auswertung der opti trials einfach nur NSE_t und NSW_w ver
     configuration= [inputDelays feedbackDelays TF hidden1 hidden2 z];
     configuration_results=[NSE_t NSE_w r Ts_mse Ts_RMSE configuration];
     % % %     configuration_string=[sprintf('_%d') num2str(z) sprintf('_%d') num2str(inputDelays) sprintf('_%d') num2str(feedbackDelays) sprintf('_%d') num2str(TF) sprintf('_%d') num2str(hidden1) sprintf('_%d') num2str(hidden2)];

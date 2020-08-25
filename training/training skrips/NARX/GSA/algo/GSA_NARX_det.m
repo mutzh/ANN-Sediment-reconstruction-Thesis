@@ -13,11 +13,11 @@ ObjFun=GSA_objective_NARX_det(data_NarxN);
 
 %create serach space to sample from
 tic;
-dim_N1=7;
-stepN1=3;
+dim_N1=7;%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+stepN1=6;
 %
-dim_N2=7;
-stepN2=3;
+dim_N2=7;%!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+stepN2=6;
 %
 dim_TF1=2;
 stepTF1=1;
