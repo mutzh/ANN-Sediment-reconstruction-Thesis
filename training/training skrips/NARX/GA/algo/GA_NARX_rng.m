@@ -25,7 +25,7 @@ b = [];
 Aeq = [];
 beq = [];
 lb = [1 1 1 1 1 0 1 1];   %untere grenze
-ub = [4 4 2 2 2 6 7 500] ; % obere grenze 
+ub = [4 4 2 2 2 6 7 100] ; % obere grenze 
 nonlcon = [];
 
 opti_func = GA_objective_NARX_rng(data_NarxN);  %GA() erwartet ein function handle, dies fkt. erstellt eines aus der objective function

@@ -42,7 +42,7 @@ function [best,best_candidate]= RSA_unique_NARX_rng(data_NarxN)
     dim_TF3=2;
     ID=6;
     FD=7;
-    dim_SEED=500;
+    dim_SEED=100;
     
     
 %build up design space to sample from

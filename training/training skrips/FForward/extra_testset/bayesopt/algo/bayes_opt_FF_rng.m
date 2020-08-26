@@ -21,7 +21,7 @@ Neurons_two=optimizableVariable('NEURONS2',[1,11],'Type','integer');
 tf1=optimizableVariable('TF1',[1,2],'Type','integer');
 tf2=optimizableVariable('TF2',[1,2],'Type','integer');
 tf3=optimizableVariable('TF3',[1,2],'Type','integer');
-seed=optimizableVariable('SEED',[1,30],'Type','integer');
+seed=optimizableVariable('SEED',[1,100],'Type','integer');
 
 
 objective_function=create_opti_bayes_FF_rng(data_NarxN);%erstellen des function handle
@@ -40,7 +40,7 @@ plot_functions={};
             
 results=bayesopt(objective_function,[Neurons_one,Neurons_two,tf1,tf2,tf3,seed],'IsObjectiveDeterministic',true,'Verbose',0,...
                 'MaxObjectiveEvaluations',1000,'PlotFcn',plot_functions,'NumSeedPoints',4,'AcquisitionFunctionName',...
-                'expected-improvement-plus','ExplorationRatio',0.6,'MaxTime',445);
+                'expected-improvement-plus','ExplorationRatio',0.6,'GPActiveSetSize',1000,'MaxTime',10000);
 
 minObjective=results.MinObjective;
 bestNet=results.XAtMinObjective;

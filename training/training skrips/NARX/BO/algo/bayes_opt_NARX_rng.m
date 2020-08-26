@@ -23,7 +23,7 @@ tf2=optimizableVariable('TF2',[1,2],'Type','integer');
 tf3=optimizableVariable('TF3',[1,2],'Type','integer');
 id=optimizableVariable('ID',[1,6],'Type','integer');
 fd=optimizableVariable('FD',[1,7],'Type','integer');
-seed=optimizableVariable('SEED',[1,500],'Type','integer');
+seed=optimizableVariable('SEED',[1,100],'Type','integer');
 
 
 
@@ -43,7 +43,7 @@ objective_function=create_opti_bayes_NARX_rng(data_NarxN);%erstellen des functio
 results=bayesopt(objective_function,[Neurons_one,Neurons_two,tf1,tf2,tf3,id,fd,seed],'IsObjectiveDeterministic',true,'Verbose',0,...
                 'MaxObjectiveEvaluations',50000,'PlotFcn',plot_functions,'NumSeedPoints',4,'AcquisitionFunctionName',...
                 'expected-improvement-plus','ExplorationRatio',0.6,'GPActiveSetSize',1000,'MaxTime',57600);
-%gp active set size was 800 for the initial opt trials
+
 minObjective=results.MinObjective;
 bestNet=results.XAtMinObjective;
 bestNet=table2array(bestNet);

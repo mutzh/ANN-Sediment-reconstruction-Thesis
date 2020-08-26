@@ -34,7 +34,7 @@ function [best,best_candidate]= RSA_unique_FF_rng(data_NarxN)
     dim_TF1=2;
     dim_TF2=2;
     dim_TF3=2;
-    dim_SEED=30;
+    dim_SEED=100;
     
 %     no_design_possibilites=dim_N1*dim_N2*dim_TF1*dim_TF2*dim_TF3*dim_SEED;
     no_design_possibilites=dim_N1*dim_N2*dim_TF1*dim_TF2*dim_TF3*dim_SEED;
@@ -59,8 +59,8 @@ function [best,best_candidate]= RSA_unique_FF_rng(data_NarxN)
     
     
     %RSA options
-    maxTime=445;
-    numIter=600;
+    maxTime=10000;
+    numIter=50000;
     %candidate population
     rng('shuffle')
     %here it is decided which rows(designs) are going to be evaluated on the
