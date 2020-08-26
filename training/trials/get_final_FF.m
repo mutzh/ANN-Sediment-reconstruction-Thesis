@@ -1,5 +1,5 @@
 load('GSA_noise')
-load('opti_trials_FF_final')
+load('get_opti_trials_FF_final')
 
 
 
@@ -128,15 +128,15 @@ best_of_all_trials_overall=[Best_of_all_trials_det;Best_of_all_trials_noise;Best
 figure;
 boxplot(Best_det)
 title('RandsearchFixed                     GaFixed                              BayesoptFixed               GridsearchFixed  ')
-ylabel('NSE')
+ylabel('NSE test')
 
 figure;
 boxplot(Best_noise)
 title('RandsearchStochast               GaStochast                            BayesoptStochast             GridsearchStochast')
-ylabel('NSE')
+ylabel('NSE test')
 
 figure;
 boxplot(Best_rng)
 title('RandsearchHP                  GaHP                             BayesoptHP             GridsearchHP')
-ylabel('NSE')
+ylabel('NSE test')
 

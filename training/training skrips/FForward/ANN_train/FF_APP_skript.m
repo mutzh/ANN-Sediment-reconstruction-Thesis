@@ -196,6 +196,11 @@ Boxplot_matrix_wholeset=[all_config_results(1:count,2),all_config_results(1+coun
     all_config_results(1+count*10:count*11,2),all_config_results(1+count*11:count*12,2)];
 
 
+%if you wish to take out the outliers, uncomment this part
+%via:"Boxplot_matrix_testset(Boxplot_matrix_testset<(0))=(0);" 
+%and Boxplot_matrix_wholeset(Boxplot_matrix_wholeset<(0))=(0);
+
+
 
 %visualize the testset NSE via boxplot and bargraph(based on mean)
 figure;

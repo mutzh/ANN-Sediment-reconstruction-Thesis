@@ -243,10 +243,17 @@ Boxplot_matrix_wholeset=[all_config_results(1:count,2),all_config_results(1+coun
     all_config_results(1+count*4:count*5,2),all_config_results(1+count*5:count*6,2),...
     all_config_results(1+count*6:count*7,2),all_config_results(1+count*7:count*8,2),...
     all_config_results(1+count*8:count*9,2),all_config_results(1+count*9:count*10,2),...
-    all_config_results(1+count*10:count*11,2),all_config_results(1+count*11:count*12,2)];;
+    all_config_results(1+count*10:count*11,2),all_config_results(1+count*11:count*12,2)];
+
+
+%if you wish to take out the outliers, uncomment this part
+%via:"Boxplot_matrix_testset(Boxplot_matrix_testset<(0))=(0);" 
+%and Boxplot_matrix_wholeset(Boxplot_matrix_wholeset<(0))=(0);
+
 
 %visualize the testset NSE via boxplot and bargraph(based on mean)
-cmd
+figure
+boxplot(Boxplot_matrix_testset)
 title('all setups in order: fixed[RSA,GA,BO,GSA],stochast[RSA,GA,BO,GSA],HP[RSA,GA,BO,GSA]')
 ylabel('testset NSE')
 
@@ -265,7 +272,7 @@ boxplot(Boxplot_matrix_wholeset)
 title('all setups in order: fixed[RSA,GA,BO,GSA],stochast[RSA,GA,BO,GSA],HP[RSA,GA,BO,GSA]')
 ylabel('wholeset NSE')
 
-means_wholeset=mean(Boxplot_matrix_wholeset,2);
+means_wholeset=mean(Boxplot_matrix_wholeset,1);
 x=categorical({'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
 x=reordercats(x,{'RSA fixed','GA fixed','BO fixed','GSA fixed','RSA stochast','GA stochast','BO stochast','GSA stochast','RSA HP','GA HP','BO HP','GSA HP'});
 

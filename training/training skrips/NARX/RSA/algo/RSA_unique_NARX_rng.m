@@ -42,7 +42,7 @@ function [best,best_candidate]= RSA_unique_NARX_rng(data_NarxN)
     dim_TF3=2;
     ID=6;
     FD=7;
-    dim_SEED=3;
+    dim_SEED=500;
     
     
 %build up design space to sample from
@@ -72,8 +72,8 @@ function [best,best_candidate]= RSA_unique_NARX_rng(data_NarxN)
     
     
     %RSA options
-    maxTime=2400;
-    numIter=15000;
+    maxTime=57600;
+    numIter=50000;
     %candidate population
     rng('shuffle')
     candidate_indices=randsample(no_design_possibilites,numIter);
